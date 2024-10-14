@@ -1,3 +1,12 @@
+export interface ProblemCreateRequest {
+  title: string;
+  content: string;
+  input: string;
+  output: string;
+  memoryLimit: number;
+  timeLimit: number;
+}
+
 export interface ProblemResponse {
   id: number;
   title: string;

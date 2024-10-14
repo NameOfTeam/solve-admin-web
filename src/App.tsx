@@ -11,7 +11,9 @@ const theme: Theme = {
   colors: {
     primary: '#000',
     secondary: '#fff',
-    tertiary: '#000',
+    background: '#f0f0f0',
+    text: '#000',
+    border: '#4740CF',
   },
   fontSizes: {
     small: '12px',

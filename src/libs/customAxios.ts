@@ -51,7 +51,7 @@ customAxios.interceptors.response.use(
       if (refreshToken) {
         try {
           const { data } = await axios.post(
-            `${import.meta.env.VITE_API_URL}/auth/refresh`,
+            `${import.meta.env.VITE_API_URL}/auth/reissue`,
             {
               refreshToken,
             }

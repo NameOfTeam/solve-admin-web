@@ -5,7 +5,9 @@ declare module '@emotion/react' {
     colors: {
       primary: string;
       secondary: string;
-      tertiary: string;
+      background: string;
+      text: string;
+      border: string;
     };
     fontSizes: {
       small: string;
