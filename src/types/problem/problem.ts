@@ -7,6 +7,24 @@ export interface ProblemCreateRequest {
   timeLimit: number;
 }
 
+export interface ProblemUpdateRequest {
+  title?: string;
+  content?: string;
+  input?: string;
+  output?: string;
+  memoryLimit?: number;
+  timeLimit?: number;
+}
+
+export interface ProblemCreateValidate {
+  title: boolean;
+  content: boolean;
+  input: boolean;
+  output: boolean;
+  memoryLimit: boolean;
+  timeLimit: boolean;
+}
+
 export interface ProblemResponse {
   id: number;
   title: string;

@@ -5,6 +5,8 @@ import Login from '../../pages/Login';
 import UserList from '../../pages/UserList';
 import NewProblem from '../../pages/NewProblem';
 import ProblemList from '../../pages/ProblemList';
+import NewContest from '../../pages/NewContest';
+import ContestList from '../../pages/ContestList';
 
 const Router = () => {
   return (
@@ -15,6 +17,9 @@ const Router = () => {
           <Route path="/users" element={<UserList />} />
           <Route path="/problems" element={<ProblemList />} />
           <Route path="/problems/new" element={<NewProblem />} />
+
+          <Route path="/contests" element={<ContestList />} />
+          <Route path="/contests/new" element={<NewContest />} />
         </Route>
 
         <Route path="/login" element={<Login />} />

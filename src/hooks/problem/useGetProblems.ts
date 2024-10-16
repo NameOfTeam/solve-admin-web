@@ -6,7 +6,7 @@ import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
 import { ProblemResponse } from '../../types/problem/problem';
 
-const useGetUsers = () => {
+const useGetProblems = () => {
   const getProblems = async ({ pageParam = 0 }: { pageParam: number }) => {
     const { data } = await customAxios.get<
       BaseResponse<PageResponse<ProblemResponse>>
@@ -40,4 +40,4 @@ const useGetUsers = () => {
   return { data, ref, fetchNextPage };
 };
 
-export default useGetUsers;
+export default useGetProblems;
