@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Theme } from '@emotion/react';
+import useTokenStore from './stores/useTokenStore';
 
 const queryClient = new QueryClient();
 
@@ -28,6 +29,16 @@ const theme: Theme = {
 };
 
 const App = () => {
+  const { accessToken } = useTokenStore();
+
+  if (
+    !accessToken &&
+    window.location.pathname !== '/login' &&
+    window.location.pathname !== '/signup'
+  ) {
+    window.location.href = '/login';
+  }
+
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>

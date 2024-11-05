@@ -43,7 +43,7 @@ const useLogin = () => {
 
   useEffect(() => {
     clearTokens();
-  }, []);
+  }, [clearTokens]);
 
   return { request, handleChange, isPending, mutate, isSuccess };
 };

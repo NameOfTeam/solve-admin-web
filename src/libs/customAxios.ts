@@ -50,8 +50,8 @@ customAxios.interceptors.response.use(
             refreshToken,
           });
 
-          setAccessToken(data.accessToken);
-          setRefreshToken(data.refreshToken);
+          setAccessToken(data.data.accessToken);
+          setRefreshToken(data.data.refreshToken);
 
           originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
 
