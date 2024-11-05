@@ -43,7 +43,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <Router />
-        <ToastContainer />
+        <ToastContainer theme="colored" />
       </ThemeProvider>
     </QueryClientProvider>
   );

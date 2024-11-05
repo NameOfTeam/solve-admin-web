@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { ContestCreateRequest } from '../../types/contest/contest';
-import customAxios from '../../libs/customAxios';
 import { BaseResponse } from '../../types/common/base';
 import { useMutation } from '@tanstack/react-query';
+import adminAxios from '../../libs/adminAxios';
 
 const useCreateContest = () => {
   const [request, setRequest] = useState<ContestCreateRequest>({
@@ -16,7 +16,7 @@ const useCreateContest = () => {
   });
 
   const createContest = async () => {
-    await customAxios.post<BaseResponse<null>>('/contests', request);
+    await adminAxios.post<BaseResponse<null>>('/contests', request);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
