@@ -12,6 +12,7 @@ import NewProblemIdea from '../../pages/NewProblemIdea';
 import ProblemIdea from '../../pages/ProblemIdea';
 import Problem from '../../pages/Problem';
 import Contest from '../../pages/Contest';
+import Signup from '../../pages/SignUp';
 
 const Router = () => {
   return (
@@ -34,6 +35,7 @@ const Router = () => {
         </Route>
 
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </BrowserRouter>
   );
