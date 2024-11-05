@@ -13,11 +13,7 @@ export const Container = styled.div`
   }
 `;
 
-const useHorizontalResizable = (
-  initialLeftWidth = 50,
-  minWidth = 20,
-  maxWidth = 80
-) => {
+const useHorizontalResizable = (initialLeftWidth = 50, minWidth = 20, maxWidth = 80) => {
   const [leftWidth, setLeftWidth] = useState(initialLeftWidth);
   const [isDragging, setIsDragging] = useState(false);
 
@@ -36,7 +32,7 @@ const useHorizontalResizable = (
         setLeftWidth(Math.max(minWidth, Math.min(maxWidth, newLeftWidth)));
       }
     },
-    [isDragging, minWidth, maxWidth]
+    [isDragging, minWidth, maxWidth],
   );
 
   useEffect(() => {

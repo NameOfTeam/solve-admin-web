@@ -23,7 +23,7 @@ const useLogin = () => {
   const login = async () => {
     const { data } = await axios.post<BaseResponse<LoginResponse>>(
       `${import.meta.env.VITE_API_URL}/auth/login`,
-      request
+      request,
     );
 
     return data.data;

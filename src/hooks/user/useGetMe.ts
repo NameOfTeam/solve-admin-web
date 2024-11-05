@@ -9,9 +9,7 @@ const useGetMe = () => {
   const { accessToken } = useTokenStore();
 
   const getMe = async () => {
-    const { data } = await customAxios.get<BaseResponse<UserResponse>>(
-      '/users/me'
-    );
+    const { data } = await customAxios.get<BaseResponse<UserResponse>>('/users/me');
 
     return data.data;
   };

@@ -7,12 +7,7 @@ interface MarkdownEditorProps {
   onChange: (value: string) => void;
 }
 
-const MarkdownEditor = ({
-  width,
-  height,
-  value,
-  onChange,
-}: MarkdownEditorProps) => {
+const MarkdownEditor = ({ width, height, value, onChange }: MarkdownEditorProps) => {
   return (
     <Editor
       width={width}

@@ -8,9 +8,7 @@ import { useEffect } from 'react';
 
 const useGetUsers = () => {
   const getUsers = async ({ pageParam = 0 }: { pageParam: number }) => {
-    const { data } = await customAxios.get<
-      BaseResponse<PageResponse<UserResponse>>
-    >('/users', {
+    const { data } = await customAxios.get<BaseResponse<PageResponse<UserResponse>>>('/users', {
       params: {
         page: pageParam,
         size: 10,

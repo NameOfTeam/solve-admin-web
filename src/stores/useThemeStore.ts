@@ -15,8 +15,8 @@ const useThemeStore = create(
     {
       name: 'theme',
       storage: createJSONStorage(() => localStorage),
-    }
-  )
+    },
+  ),
 );
 
 export default useThemeStore;

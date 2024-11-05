@@ -19,9 +19,7 @@ const useCreateContest = () => {
     await customAxios.post<BaseResponse<null>>('/contests', request);
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setRequest({ ...request, [e.target.name]: e.target.value });
   };
 

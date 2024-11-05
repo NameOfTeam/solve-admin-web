@@ -5,9 +5,7 @@ import { UserResponse } from '../../types/user/user';
 
 const useGetUser = (userId: string) => {
   const getUser = async () => {
-    const { data } = await customAxios.get<BaseResponse<UserResponse>>(
-      `/users/${userId}`
-    );
+    const { data } = await customAxios.get<BaseResponse<UserResponse>>(`/users/${userId}`);
 
     return data.data;
   };

@@ -6,12 +6,12 @@ interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;
 }
 
-const customAxios = axios.create({
-  baseURL: `${import.meta.env.VITE_API_URL}`,
+const adminAxios = axios.create({
+  baseURL: `${import.meta.env.VITE_API_URL}/admin`,
   withCredentials: true,
 });
 
-customAxios.interceptors.request.use(
+adminAxios.interceptors.request.use(
   async (config) => {
     const { accessToken } = getTokenStore();
 
@@ -32,7 +32,7 @@ customAxios.interceptors.request.use(
   },
 );
 
-customAxios.interceptors.response.use(
+adminAxios.interceptors.response.use(
   (response) => {
     return response;
   },
@@ -55,7 +55,7 @@ customAxios.interceptors.response.use(
 
           originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
 
-          return customAxios(originalRequest);
+          return adminAxios(originalRequest);
         } catch (error) {
           console.error(error);
 
@@ -68,4 +68,4 @@ customAxios.interceptors.response.use(
   },
 );
 
-export default customAxios;
+export default adminAxios;

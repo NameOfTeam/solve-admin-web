@@ -26,9 +26,7 @@ const useCreateProblem = () => {
     timeLimit: false,
   });
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
 
     setRequest({ ...request, [name]: value });
@@ -36,10 +34,7 @@ const useCreateProblem = () => {
   };
 
   const createProblem = async () => {
-    const { data } = await customAxios.post<BaseResponse<ProblemResponse>>(
-      '/problems',
-      request
-    );
+    const { data } = await customAxios.post<BaseResponse<ProblemResponse>>('/problems', request);
 
     return data.data;
   };

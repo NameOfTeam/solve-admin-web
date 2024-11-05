@@ -8,14 +8,15 @@ import { ProblemResponse } from '../../types/problem/problem';
 
 const useGetProblems = () => {
   const getProblems = async ({ pageParam = 0 }: { pageParam: number }) => {
-    const { data } = await customAxios.get<
-      BaseResponse<PageResponse<ProblemResponse>>
-    >('/problems', {
-      params: {
-        page: pageParam,
-        size: 10,
+    const { data } = await customAxios.get<BaseResponse<PageResponse<ProblemResponse>>>(
+      '/problems',
+      {
+        params: {
+          page: pageParam,
+          size: 10,
+        },
       },
-    });
+    );
 
     return data.data;
   };

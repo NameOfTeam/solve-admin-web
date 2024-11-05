@@ -19,11 +19,7 @@ interface Props {
   maxHeight: number;
 }
 
-const useVerticalResizable = ({
-  initialTopHeight,
-  minHeight,
-  maxHeight,
-}: Props) => {
+const useVerticalResizable = ({ initialTopHeight, minHeight, maxHeight }: Props) => {
   const [topHeight, setTopHeight] = useState(initialTopHeight);
   const [isDragging, setIsDragging] = useState(false);
 
@@ -42,7 +38,7 @@ const useVerticalResizable = ({
         setTopHeight(Math.max(minHeight, Math.min(maxHeight, newTopHeight)));
       }
     },
-    [isDragging, minHeight, maxHeight]
+    [isDragging, minHeight, maxHeight],
   );
 
   useEffect(() => {

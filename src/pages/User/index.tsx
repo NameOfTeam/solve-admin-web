@@ -11,9 +11,7 @@ const User = () => {
   const { data, isLoading } = useGetUser(userId);
 
   return (
-    <S.Container>
-      {isLoading ? <div>Loading...</div> : <div>{data?.username}</div>}
-    </S.Container>
+    <S.Container>{isLoading ? <div>Loading...</div> : <div>{data?.username}</div>}</S.Container>
   );
 };
 

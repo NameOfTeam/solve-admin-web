@@ -26,23 +26,14 @@ const ProblemPreview = ({ problem, width = 50 }: ProblemPreviewProps) => {
               const match = /language-(\w+)/.exec(className || '');
               return match ? (
                 // 코드 (```)
-                <SyntaxHighlighter
-                  style={nord}
-                  language={match[1]}
-                  PreTag="div"
-                >
+                <SyntaxHighlighter style={nord} language={match[1]} PreTag="div">
                   {String(children)
                     .replace(/\n$/, '')
                     .replace(/\n&nbsp;\n/g, '')
                     .replace(/\n&nbsp\n/g, '')}
                 </SyntaxHighlighter>
               ) : (
-                <SyntaxHighlighter
-                  style={nord}
-                  background="green"
-                  language="textile"
-                  PreTag="div"
-                >
+                <SyntaxHighlighter style={nord} background="green" language="textile" PreTag="div">
                   {String(children).replace(/\n$/, '')}
                 </SyntaxHighlighter>
               );

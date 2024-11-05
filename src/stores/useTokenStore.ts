@@ -22,8 +22,8 @@ const useTokenStore = create(
 
       clearTokens: () => set({ accessToken: '', refreshToken: '' }),
     }),
-    { name: 'token', storage: createJSONStorage(() => localStorage) }
-  )
+    { name: 'token', storage: createJSONStorage(() => localStorage) },
+  ),
 );
 
 export const getTokenStore = () => {

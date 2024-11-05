@@ -6,8 +6,7 @@ import useCreateContest from '../../hooks/contest/useCreateContest';
 import { useEffect } from 'react';
 
 const NewContest = () => {
-  const { request, handleChange, isPending, mutate, isSuccess } =
-    useCreateContest();
+  const { request, handleChange, mutate, isSuccess } = useCreateContest();
   const { leftWidth, rightWidth, Resizer } = useHorizontalResizable();
   const navigate = useNavigate();
 
@@ -15,7 +14,7 @@ const NewContest = () => {
     if (isSuccess) {
       navigate('/contests');
     }
-  }, [isSuccess]);
+  }, [isSuccess, navigate]);
 
   return (
     <S.Container>

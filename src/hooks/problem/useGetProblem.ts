@@ -5,9 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 
 const useGetProblem = (problemId: number) => {
   const getProblem = async (problemId: number) => {
-    const { data } = await customAxios.get<BaseResponse<ProblemResponse>>(
-      `/problems/${problemId}`
-    );
+    const { data } = await customAxios.get<BaseResponse<ProblemResponse>>(`/problems/${problemId}`);
 
     return data.data;
   };

@@ -1,15 +1,10 @@
-import {
-  ProblemCreateRequest,
-  ProblemCreateValidate,
-} from '../../types/problem/problem';
+import { ProblemCreateRequest, ProblemCreateValidate } from '../../types/problem/problem';
 import MarkdownEditor from '../MarkdownEditor';
 import * as S from './style';
 
 interface ProblemSourceProps {
   request: ProblemCreateRequest;
-  handleChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   validate: ProblemCreateValidate;
   isPending: boolean;
   mutate: () => void;
@@ -88,9 +83,7 @@ const ProblemSource = ({
             value={request.memoryLimit}
             onChange={handleChange}
           />
-          <S.Error>
-            {!validate.memoryLimit && '메모리 제한을 입력해주세요.'}
-          </S.Error>
+          <S.Error>{!validate.memoryLimit && '메모리 제한을 입력해주세요.'}</S.Error>
         </S.InputWrapper>
 
         <S.InputWrapper>
@@ -101,9 +94,7 @@ const ProblemSource = ({
             value={request.timeLimit}
             onChange={handleChange}
           />
-          <S.Error>
-            {!validate.timeLimit && '시간 제한을 입력해주세요.'}
-          </S.Error>
+          <S.Error>{!validate.timeLimit && '시간 제한을 입력해주세요.'}</S.Error>
         </S.InputWrapper>
       </S.LimitWrapper>
 
