@@ -5,6 +5,10 @@ interface StatChangeProps {
   isPositive: boolean;
 }
 
+interface ViewButtonProps {
+  isActive: boolean;
+}
+
 export const Container = styled.div`
   max-width: 1440px;
   margin: 0 auto;
@@ -44,9 +48,9 @@ export const Header = styled.div`
     background: linear-gradient(90deg, rgba(99, 102, 241, 0.2) 0%, rgba(59, 130, 246, 0.2) 100%);
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 1024px) {
     flex-direction: column;
-    gap: 1rem;
+    gap: 2rem;
   }
 `;
 
@@ -55,18 +59,6 @@ export const Title = styled.h1`
   color: #1e293b;
   font-weight: 800;
   letter-spacing: -0.02em;
-  position: relative;
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 0;
-    width: 60px;
-    height: 4px;
-    background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
-    border-radius: 2px;
-  }
 
   span {
     background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
@@ -80,7 +72,58 @@ export const Title = styled.h1`
   }
 `;
 
-export const DateSelector = styled(motion.button)`
+export const Controls = styled.div`
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+  }
+`;
+
+export const ViewSelector = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  background: white;
+  padding: 0.5rem;
+  border-radius: 12px;
+  border: 2px solid #e2e8f0;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    justify-content: space-between;
+  }
+`;
+
+export const ViewButton = styled.button<ViewButtonProps>`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  background: ${({ isActive }) => (isActive ? '#6366f1' : 'transparent')};
+  color: ${({ isActive }) => (isActive ? 'white' : '#64748b')};
+
+  svg {
+    font-size: 1.1rem;
+  }
+
+  &:hover {
+    background: ${({ isActive }) => (isActive ? '#6366f1' : '#f1f5f9')};
+  }
+
+  @media (max-width: 768px) {
+    flex: 1;
+    justify-content: center;
+  }
+`;
+
+export const DateSelector = styled.button`
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -90,26 +133,35 @@ export const DateSelector = styled(motion.button)`
   border-radius: 12px;
   color: #1e293b;
   font-weight: 500;
-  font-size: 1rem;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 
   svg {
     color: #6366f1;
+    font-size: 1.2rem;
   }
 
   &:hover {
     border-color: #6366f1;
     background: #f8fafc;
   }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    justify-content: center;
+  }
+`;
+
+export const Content = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 `;
 
 export const StatGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
-  margin-bottom: 2rem;
 
   @media (max-width: 1280px) {
     grid-template-columns: repeat(2, 1fr);
@@ -146,8 +198,13 @@ export const StatCard = styled(motion.div)`
     transition: transform 0.3s ease;
   }
 
-  &:hover::before {
-    transform: scaleX(1);
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+    &::before {
+      transform: scaleX(1);
+    }
   }
 `;
 
@@ -160,7 +217,11 @@ export const StatIcon = styled.div`
   align-items: center;
   justify-content: center;
   color: #6366f1;
-  font-size: 1.5rem;
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
 `;
 
 export const StatInfo = styled.div`
@@ -203,7 +264,7 @@ export const ChartGrid = styled.div`
   }
 `;
 
-export const ChartCard = styled(motion.div)`
+export const ChartCard = styled.div`
   background: white;
   border-radius: 16px;
   border: 1px solid #e2e8f0;
@@ -235,94 +296,28 @@ export const ChartTitle = styled.h3`
 
   svg {
     color: #6366f1;
+    font-size: 1.2rem;
   }
 `;
 
 export const ChartContent = styled.div`
   padding: 1.5rem;
+  height: 300px;
 `;
 
-export const ChartLegend = styled.div`
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-  padding: 1rem;
-`;
-
-export const LegendItem = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.875rem;
-  color: #64748b;
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  background: #f1f5f9;
-  transition: all 0.2s ease;
-
-  &:hover {
-    background: #e2e8f0;
-    color: #1e293b;
-  }
-`;
-
-export const NoDataMessage = styled.div`
+export const NoData = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 3rem;
+  height: 100%;
   color: #64748b;
+  gap: 1rem;
   text-align: center;
+  padding: 2rem;
 
   svg {
     font-size: 2.5rem;
     color: #cbd5e1;
-    margin-bottom: 1rem;
-  }
-
-  h4 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #1e293b;
-    margin-bottom: 0.5rem;
-  }
-
-  p {
-    color: #64748b;
-    font-size: 0.95rem;
-  }
-`;
-
-export const LoadingSpinner = styled(motion.div)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-
-  svg {
-    color: #6366f1;
-    font-size: 1.5rem;
-  }
-`;
-
-export const CustomTooltip = styled.div`
-  background: white;
-  border-radius: 8px;
-  padding: 0.75rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e2e8f0;
-
-  .label {
-    color: #64748b;
-    font-size: 0.875rem;
-    margin-bottom: 0.25rem;
-  }
-
-  .value {
-    color: #1e293b;
-    font-weight: 600;
   }
 `;

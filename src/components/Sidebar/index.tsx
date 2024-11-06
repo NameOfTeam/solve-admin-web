@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { FaHome, FaCode, FaTrophy, FaUsers, FaChartLine, FaCog } from 'react-icons/fa';
+import { FaHome, FaCode, FaTrophy, FaUsers, FaChartLine, FaCog, FaBrain } from 'react-icons/fa';
 import * as S from './style';
 
 const menuItems = [
@@ -29,6 +29,11 @@ const menuItems = [
     path: '/statistics',
   },
   {
+    title: '로그 (With AI)',
+    icon: <FaBrain />,
+    path: '/logs',
+  },
+  {
     title: '설정',
     icon: <FaCog />,
     path: '/settings',
@@ -51,8 +56,7 @@ const Sidebar = () => {
           <S.MenuItem
             key={item.path}
             active={location.pathname === item.path}
-            onClick={() => navigate(item.path)}
-          >
+            onClick={() => navigate(item.path)}>
             <S.MenuIcon active={location.pathname === item.path}>{item.icon}</S.MenuIcon>
             <S.MenuTitle active={location.pathname === item.path}>{item.title}</S.MenuTitle>
           </S.MenuItem>

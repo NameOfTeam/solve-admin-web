@@ -18,6 +18,7 @@ import NotFound from '../../pages/NotFound';
 import Statistics from '../../pages/Statistics';
 import User from '../../pages/User';
 import EditUser from '../../pages/EditUser';
+import Logs from '../../pages/Logs';
 
 const Router = () => {
   return (
@@ -43,6 +44,9 @@ const Router = () => {
 
           <Route path="/settings" element={<Settings />} />
           <Route path="/statistics" element={<Statistics />} />
+
+          <Route path="/logs" element={<Logs />} />
+
           <Route path="*" element={<NotFound />} />
         </Route>
 

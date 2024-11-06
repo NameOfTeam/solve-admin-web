@@ -62,7 +62,7 @@ const NewProblemIdea = () => {
       ...prev,
       [name]: value,
     }));
-    // 에러 메시지 초기화
+
     if (errors[name as keyof typeof errors]) {
       setErrors((prev) => ({
         ...prev,

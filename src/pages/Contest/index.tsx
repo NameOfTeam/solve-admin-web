@@ -125,8 +125,7 @@ const Contest = () => {
               if (window.confirm('정말 삭제하시겠습니까?')) {
                 deleteMutation.mutate();
               }
-            }}
-          >
+            }}>
             <FaTrash /> 삭제
           </S.DeleteButton>
         </S.ActionButtons>

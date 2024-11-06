@@ -37,7 +37,7 @@ const ProblemPreview = ({ problem, width = 50 }: ProblemPreviewProps) => {
                 </SyntaxHighlighter>
               );
             },
-            // 인용문 (>)
+
             blockquote({ children, ...props }) {
               return (
                 <blockquote
@@ -46,8 +46,7 @@ const ProblemPreview = ({ problem, width = 50 }: ProblemPreviewProps) => {
                     padding: '1px 15px',
                     borderRadius: '10px',
                   }}
-                  {...props}
-                >
+                  {...props}>
                   {children}
                 </blockquote>
               );
@@ -68,8 +67,7 @@ const ProblemPreview = ({ problem, width = 50 }: ProblemPreviewProps) => {
                 </span>
               );
             },
-          }}
-        >
+          }}>
           {problem.content}
         </S.PreviewSectionContent>
       </S.PreviewSection>
