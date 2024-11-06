@@ -46,7 +46,8 @@ const ProblemPreview = ({ problem, width = 50 }: ProblemPreviewProps) => {
                     padding: '1px 15px',
                     borderRadius: '10px',
                   }}
-                  {...props}>
+                  {...props}
+                >
                   {children}
                 </blockquote>
               );
@@ -67,7 +68,8 @@ const ProblemPreview = ({ problem, width = 50 }: ProblemPreviewProps) => {
                 </span>
               );
             },
-          }}>
+          }}
+        >
           {problem.content}
         </S.PreviewSectionContent>
       </S.PreviewSection>

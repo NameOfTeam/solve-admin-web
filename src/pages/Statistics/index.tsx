@@ -52,7 +52,8 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, change, icon, delay =
       stiffness: 200,
       damping: 20,
       delay,
-    }}>
+    }}
+  >
     <S.StatIcon>{icon}</S.StatIcon>
     <S.StatInfo>
       <S.StatTitle>{title}</S.StatTitle>
@@ -248,7 +249,8 @@ const Statistics = () => {
                       innerRadius={60}
                       outerRadius={100}
                       dataKey="count"
-                      label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}>
+                      label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
+                    >
                       {problemStats.categoryData.map((_, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
@@ -352,7 +354,8 @@ const Statistics = () => {
                       cy="50%"
                       outerRadius={100}
                       dataKey="count"
-                      label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}>
+                      label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
+                    >
                       {problemStats.languageData.map((_, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
@@ -445,7 +448,8 @@ const Statistics = () => {
                       innerRadius={60}
                       outerRadius={100}
                       dataKey="count"
-                      label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}>
+                      label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
+                    >
                       {contestStats.rankDistribution.map((_, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
@@ -649,7 +653,8 @@ const Statistics = () => {
                       innerRadius={60}
                       outerRadius={100}
                       dataKey="count"
-                      label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}>
+                      label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
+                    >
                       {submissionStats.languageData.map((_, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
@@ -759,19 +764,22 @@ const Statistics = () => {
           <S.ViewSelector>
             <S.ViewButton
               isActive={currentView === 'problem'}
-              onClick={() => setCurrentView('problem')}>
+              onClick={() => setCurrentView('problem')}
+            >
               <FaCode />
               문제
             </S.ViewButton>
             <S.ViewButton
               isActive={currentView === 'contest'}
-              onClick={() => setCurrentView('contest')}>
+              onClick={() => setCurrentView('contest')}
+            >
               <FaTrophy />
               대회
             </S.ViewButton>
             <S.ViewButton
               isActive={currentView === 'submission'}
-              onClick={() => setCurrentView('submission')}>
+              onClick={() => setCurrentView('submission')}
+            >
               <FaChartLine />
               제출
             </S.ViewButton>
@@ -789,7 +797,8 @@ const Statistics = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.2 }}>
+          transition={{ duration: 0.2 }}
+        >
           {renderContent()}
         </S.Content>
       </AnimatePresence>
