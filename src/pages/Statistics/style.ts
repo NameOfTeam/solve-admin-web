@@ -59,6 +59,18 @@ export const Title = styled.h1`
   color: #1e293b;
   font-weight: 800;
   letter-spacing: -0.02em;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
+    border-radius: 2px;
+  }
 
   span {
     background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
@@ -106,8 +118,10 @@ export const ViewButton = styled.button<ViewButtonProps>`
   border-radius: 8px;
   font-weight: 500;
   transition: all 0.2s ease;
+  border: none;
   background: ${({ isActive }) => (isActive ? '#6366f1' : 'transparent')};
   color: ${({ isActive }) => (isActive ? 'white' : '#64748b')};
+  cursor: pointer;
 
   svg {
     font-size: 1.1rem;
@@ -249,8 +263,7 @@ export const StatChange = styled.div<StatChangeProps>`
   border-radius: 9999px;
   font-size: 0.875rem;
   font-weight: 500;
-  background: ${({ isPositive }) =>
-    isPositive ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)'};
+  background: ${({ isPositive }) => (isPositive ? 'rgba(16,185,129,0.1)' : 'rgba(239,68,68,0.1)')};
   color: ${({ isPositive }) => (isPositive ? '#059669' : '#dc2626')};
 `;
 
@@ -303,21 +316,4 @@ export const ChartTitle = styled.h3`
 export const ChartContent = styled.div`
   padding: 1.5rem;
   height: 300px;
-`;
-
-export const NoData = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  color: #64748b;
-  gap: 1rem;
-  text-align: center;
-  padding: 2rem;
-
-  svg {
-    font-size: 2.5rem;
-    color: #cbd5e1;
-  }
 `;

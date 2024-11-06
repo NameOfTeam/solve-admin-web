@@ -33,6 +33,7 @@ export interface AuthLog extends BaseLogEntry {
   user: string;
   ip: string;
   device: string;
+  browser: string;
   location: string;
 }
 
@@ -63,33 +64,23 @@ export interface ApiLog extends BaseLogEntry {
   ip: string;
 }
 
-export interface ChartDataPoint {
-  hour: string;
-  [key: string]: string | number;
-}
-
-export interface DeviceStat {
-  name: string;
-  count: number;
-  icon: React.ReactNode;
-}
-
-export interface AttackType {
-  type: string;
-  count: number;
-}
-
-export interface EndpointStat {
-  endpoint: string;
-  count: number;
-  avgTime: number;
-}
-
 export interface StatCard {
   title: string;
   value: string | number;
   change: number;
   icon: React.ReactNode;
+}
+
+export interface ChartDataPoint {
+  hour: string;
+  [key: string]: string | number;
+}
+
+export interface FilterState {
+  search: string;
+  levels: LogLevel[];
+  timeRange: TimeRange;
+  isRealtime: boolean;
 }
 
 export interface LogData {
@@ -99,7 +90,7 @@ export interface LogData {
 
 export interface AuthLogData extends LogData {
   loginAttempts: ChartDataPoint[];
-  deviceStats: DeviceStat[];
+  deviceStats: Array<{ name: string; count: number }>;
   recentLogs: AuthLog[];
 }
 
@@ -110,19 +101,16 @@ export interface SystemLogData extends LogData {
 }
 
 export interface SecurityLogData extends LogData {
-  attackTypes: AttackType[];
+  attackTypes: Array<{ type: string; count: number }>;
   recentLogs: SecurityLog[];
 }
 
 export interface ApiLogData extends LogData {
   responseTime: ChartDataPoint[];
-  endpointStats: EndpointStat[];
+  endpointStats: Array<{
+    endpoint: string;
+    count: number;
+    avgTime: number;
+  }>;
   recentLogs: ApiLog[];
-}
-
-export interface FilterState {
-  search: string;
-  levels: LogLevel[];
-  timeRange: TimeRange;
-  isRealtime: boolean;
 }

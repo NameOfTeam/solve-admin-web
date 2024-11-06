@@ -16,7 +16,7 @@ import {
   Area,
   AreaChart,
 } from 'recharts';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import {
   FaCode,
   FaTrophy,
@@ -49,7 +49,7 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, change, icon, delay =
     animate={{ opacity: 1, y: 0 }}
     transition={{
       type: 'spring',
-      stiffness: 200,
+      stiffness: 260,
       damping: 20,
       delay,
     }}
@@ -65,11 +65,10 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, change, icon, delay =
   </S.StatCard>
 );
 
-type StatisticsView = 'problem' | 'contest' | 'submission';
-
 const Statistics = () => {
-  const [currentView, setCurrentView] = useState<StatisticsView>('problem');
+  const [currentView, setCurrentView] = useState<'problem' | 'contest' | 'submission'>('problem');
 
+  // Mock data for problem statistics
   const problemStats = {
     cards: [
       { title: '전체 문제', value: '1,234', change: 15.2, icon: <FaCode /> },
@@ -95,30 +94,9 @@ const Statistics = () => {
       hour: `${String(i).padStart(2, '0')}`,
       count: Math.floor(Math.random() * 1000) + 200,
     })),
-    attemptsByDifficulty: [
-      { level: '입문', attempts: 2.3 },
-      { level: '쉬움', attempts: 4.1 },
-      { level: '보통', attempts: 7.5 },
-      { level: '어려움', attempts: 12.8 },
-      { level: '매우 어려움', attempts: 18.2 },
-    ],
-    languageData: [
-      { name: 'Python', count: 2345 },
-      { name: 'Java', count: 1567 },
-      { name: 'C++', count: 1234 },
-      { name: 'JavaScript', count: 890 },
-      { name: 'Go', count: 456 },
-    ],
-    tagData: [
-      { name: '동적계획법', count: 234 },
-      { name: '그래프', count: 189 },
-      { name: '정렬', count: 167 },
-      { name: '이진탐색', count: 145 },
-      { name: '문자열', count: 123 },
-      { name: '구현', count: 112 },
-    ],
   };
 
+  // Mock data for contest statistics
   const contestStats = {
     cards: [
       { title: '진행중인 대회', value: '3', change: 50.0, icon: <FaTrophy /> },
@@ -134,40 +112,9 @@ const Statistics = () => {
       { month: '5월', participants: 680, submissions: 2000 },
       { month: '6월', participants: 750, submissions: 2200 },
     ],
-    rankDistribution: [
-      { name: '플래티넘', count: 234 },
-      { name: '골드', count: 567 },
-      { name: '실버', count: 1234 },
-      { name: '브론즈', count: 2345 },
-    ],
-    contestScores: [
-      { name: '대회1', averageScore: 75 },
-      { name: '대회2', averageScore: 68 },
-      { name: '대회3', averageScore: 82 },
-      { name: '대회4', averageScore: 71 },
-      { name: '대회5', averageScore: 79 },
-    ],
-    hourlyParticipation: Array.from({ length: 24 }, (_, i) => ({
-      hour: `${String(i).padStart(2, '0')}:00`,
-      participants: Math.floor(Math.random() * 200) + 100,
-    })),
-    problemSuccess: [
-      { problem: '문제 A', successRate: 85 },
-      { problem: '문제 B', successRate: 67 },
-      { problem: '문제 C', successRate: 45 },
-      { problem: '문제 D', successRate: 23 },
-      { problem: '문제 E', successRate: 12 },
-    ],
-    topRankers: [
-      { month: '1월', gold: 12, silver: 24, bronze: 36 },
-      { month: '2월', gold: 15, silver: 28, bronze: 42 },
-      { month: '3월', gold: 18, silver: 32, bronze: 48 },
-      { month: '4월', gold: 14, silver: 26, bronze: 38 },
-      { month: '5월', gold: 16, silver: 30, bronze: 44 },
-      { month: '6월', gold: 20, silver: 35, bronze: 50 },
-    ],
   };
 
+  // Mock data for submission statistics
   const submissionStats = {
     cards: [
       { title: '전체 제출', value: '234,567', change: 18.5, icon: <FaChartLine /> },
@@ -175,618 +122,198 @@ const Statistics = () => {
       { title: '일일 평균 제출', value: '3,456', change: 12.8, icon: <FaChartBar /> },
       { title: '평균 응답시간', value: '2.3초', change: -15.4, icon: <FaClock /> },
     ],
-    hourlyData: Array.from({ length: 24 }, (_, i) => ({
+    submissionData: Array.from({ length: 24 }, (_, i) => ({
       hour: `${String(i).padStart(2, '0')}시`,
       accepted: Math.floor(Math.random() * 500) + 100,
       wrong: Math.floor(Math.random() * 300) + 50,
     })),
-    weeklyData: [
-      { day: '월', total: 2345, accepted: 1234 },
-      { day: '화', total: 2567, accepted: 1345 },
-      { day: '수', total: 2789, accepted: 1456 },
-      { day: '목', total: 2456, accepted: 1234 },
-      { day: '금', total: 2890, accepted: 1567 },
-      { day: '토', total: 1890, accepted: 987 },
-      { day: '일', total: 1567, accepted: 789 },
-    ],
-    languageData: [
-      { name: 'Python', count: 4500 },
-      { name: 'Java', count: 3200 },
-      { name: 'C++', count: 2800 },
-      { name: 'JavaScript', count: 1900 },
-      { name: 'Go', count: 800 },
-      { name: '기타', count: 500 },
-    ],
-    runtimeData: [
-      { range: '0-100ms', count: 3456 },
-      { range: '100-200ms', count: 2345 },
-      { range: '200-300ms', count: 1234 },
-      { range: '300-400ms', count: 890 },
-      { range: '400-500ms', count: 567 },
-      { range: '500ms+', count: 234 },
-    ],
-    errorTypes: [
-      { type: '런타임 에러', count: 1234 },
-      { type: '시간 초과', count: 890 },
-      { type: '메모리 초과', count: 567 },
-      { type: '컴파일 에러', count: 456 },
-      { type: '잘못된 출력 형식', count: 345 },
-      { type: '기타', count: 123 },
-    ],
-    memoryUsage: [
-      { range: '0-50MB', count: 2345 },
-      { range: '50-100MB', count: 1567 },
-      { range: '100-150MB', count: 890 },
-      { range: '150-200MB', count: 567 },
-      { range: '200MB+', count: 234 },
-    ],
   };
 
-  const renderContent = () => {
-    switch (currentView) {
-      case 'problem':
-        return (
-          <>
-            <S.StatGrid>
-              {problemStats.cards.map((card, index) => (
-                <StatCard key={card.title} {...card} delay={index * 0.1} />
-              ))}
-            </S.StatGrid>
-            <S.ChartGrid>
-              <S.ChartCard>
-                <S.ChartHeader>
-                  <S.ChartTitle>
-                    <FaChartPie />
-                    카테고리별 분포
-                  </S.ChartTitle>
-                </S.ChartHeader>
-                <ResponsiveContainer width="100%" height={300}>
-                  <PieChart>
-                    <Pie
-                      data={problemStats.categoryData}
-                      cx="50%"
-                      cy="50%"
-                      innerRadius={60}
-                      outerRadius={100}
-                      dataKey="count"
-                      label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
-                    >
-                      {problemStats.categoryData.map((_, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                      ))}
-                    </Pie>
-                    <Tooltip />
-                  </PieChart>
-                </ResponsiveContainer>
-              </S.ChartCard>
+  const renderProblemCharts = () => (
+    <>
+      <S.ChartGrid>
+        <S.ChartCard>
+          <S.ChartHeader>
+            <S.ChartTitle>
+              <FaChartPie /> 카테고리별 분포
+            </S.ChartTitle>
+          </S.ChartHeader>
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+              <Pie
+                data={problemStats.categoryData}
+                cx="50%"
+                cy="50%"
+                innerRadius={60}
+                outerRadius={100}
+                dataKey="count"
+                label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
+              >
+                {problemStats.categoryData.map((_, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
+              <Tooltip />
+            </PieChart>
+          </ResponsiveContainer>
+        </S.ChartCard>
 
-              <S.ChartCard>
-                <S.ChartHeader>
-                  <S.ChartTitle>
-                    <FaChartBar />
-                    난이도별 분포
-                  </S.ChartTitle>
-                </S.ChartHeader>
-                <ResponsiveContainer width="100%" height={300}>
-                  <BarChart data={problemStats.difficultyData}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="level" />
-                    <YAxis />
-                    <Tooltip />
-                    <Bar dataKey="count" fill="#6366f1">
-                      {problemStats.difficultyData.map((_, index) => (
-                        <Cell
-                          key={`cell-${index}`}
-                          fill={`rgba(99, 102, 241, ${0.4 + (index / problemStats.difficultyData.length) * 0.6})`}
-                        />
-                      ))}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
-              </S.ChartCard>
+        <S.ChartCard>
+          <S.ChartHeader>
+            <S.ChartTitle>
+              <FaChartBar /> 난이도별 문제 수
+            </S.ChartTitle>
+          </S.ChartHeader>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={problemStats.difficultyData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="level" />
+              <YAxis />
+              <Tooltip />
+              <Bar dataKey="count" fill="#6366f1">
+                {problemStats.difficultyData.map((_, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={`rgba(99, 102, 241, ${0.4 + (index / problemStats.difficultyData.length) * 0.6})`}
+                  />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </S.ChartCard>
 
-              <S.ChartCard>
-                <S.ChartHeader>
-                  <S.ChartTitle>
-                    <FaClock />
-                    시간대별 문제 풀이 현황
-                  </S.ChartTitle>
-                </S.ChartHeader>
-                <ResponsiveContainer width="100%" height={300}>
-                  <AreaChart data={problemStats.solveTimeData}>
-                    <defs>
-                      <linearGradient id="colorSolve" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#6366f1" stopOpacity={0.8} />
-                        <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
-                      </linearGradient>
-                    </defs>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="hour" />
-                    <YAxis />
-                    <Tooltip />
-                    <Area
-                      type="monotone"
-                      dataKey="count"
-                      stroke="#6366f1"
-                      fillOpacity={1}
-                      fill="url(#colorSolve)"
-                    />
-                  </AreaChart>
-                </ResponsiveContainer>
-              </S.ChartCard>
+        <S.ChartCard>
+          <S.ChartHeader>
+            <S.ChartTitle>
+              <FaClock /> 시간대별 문제 풀이
+            </S.ChartTitle>
+          </S.ChartHeader>
+          <ResponsiveContainer width="100%" height={300}>
+            <AreaChart data={problemStats.solveTimeData}>
+              <defs>
+                <linearGradient id="colorSolve" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#6366f1" stopOpacity={0.8} />
+                  <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="hour" />
+              <YAxis />
+              <Tooltip />
+              <Area
+                type="monotone"
+                dataKey="count"
+                stroke="#6366f1"
+                fillOpacity={1}
+                fill="url(#colorSolve)"
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        </S.ChartCard>
+      </S.ChartGrid>
+    </>
+  );
 
-              <S.ChartCard>
-                <S.ChartHeader>
-                  <S.ChartTitle>
-                    <FaChartLine />
-                    난이도별 평균 시도 횟수
-                  </S.ChartTitle>
-                </S.ChartHeader>
-                <ResponsiveContainer width="100%" height={300}>
-                  <LineChart data={problemStats.attemptsByDifficulty}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="level" />
-                    <YAxis />
-                    <Tooltip />
-                    <Line
-                      type="monotone"
-                      dataKey="attempts"
-                      stroke="#6366f1"
-                      strokeWidth={2}
-                      dot={{ fill: '#6366f1' }}
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </S.ChartCard>
+  const renderContestCharts = () => (
+    <>
+      <S.ChartGrid>
+        <S.ChartCard>
+          <S.ChartHeader>
+            <S.ChartTitle>
+              <FaChartLine /> 월별 참가자 및 제출 현황
+            </S.ChartTitle>
+          </S.ChartHeader>
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={contestStats.participationData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="month" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Line
+                type="monotone"
+                dataKey="participants"
+                name="참가자"
+                stroke="#6366f1"
+                strokeWidth={2}
+                dot={{ fill: '#6366f1' }}
+              />
+              <Line
+                type="monotone"
+                dataKey="submissions"
+                name="제출"
+                stroke="#3b82f6"
+                strokeWidth={2}
+                dot={{ fill: '#3b82f6' }}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </S.ChartCard>
+      </S.ChartGrid>
+    </>
+  );
 
-              <S.ChartCard>
-                <S.ChartHeader>
-                  <S.ChartTitle>
-                    <FaCode />
-                    언어별 사용 현황
-                  </S.ChartTitle>
-                </S.ChartHeader>
-                <ResponsiveContainer width="100%" height={300}>
-                  <PieChart>
-                    <Pie
-                      data={problemStats.languageData}
-                      cx="50%"
-                      cy="50%"
-                      outerRadius={100}
-                      dataKey="count"
-                      label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
-                    >
-                      {problemStats.languageData.map((_, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                      ))}
-                    </Pie>
-                    <Tooltip />
-                  </PieChart>
-                </ResponsiveContainer>
-              </S.ChartCard>
-
-              <S.ChartCard>
-                <S.ChartHeader>
-                  <S.ChartTitle>
-                    <FaChartBar />
-                    태그별 문제 수
-                  </S.ChartTitle>
-                </S.ChartHeader>
-                <ResponsiveContainer width="100%" height={300}>
-                  <BarChart data={problemStats.tagData} layout="vertical">
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis type="number" />
-                    <YAxis dataKey="name" type="category" width={100} />
-                    <Tooltip />
-                    <Bar dataKey="count" fill="#6366f1" />
-                  </BarChart>
-                </ResponsiveContainer>
-              </S.ChartCard>
-            </S.ChartGrid>
-          </>
-        );
-
-      case 'contest':
-        return (
-          <>
-            <S.StatGrid>
-              {contestStats.cards.map((card, index) => (
-                <StatCard key={card.title} {...card} delay={index * 0.1} />
-              ))}
-            </S.StatGrid>
-            <S.ChartGrid>
-              <S.ChartCard>
-                <S.ChartHeader>
-                  <S.ChartTitle>
-                    <FaChartLine />
-                    월별 대회 참가 추이
-                  </S.ChartTitle>
-                </S.ChartHeader>
-                <ResponsiveContainer width="100%" height={300}>
-                  <LineChart data={contestStats.participationData}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="month" />
-                    <YAxis yAxisId="left" />
-                    <YAxis yAxisId="right" orientation="right" />
-                    <Tooltip />
-                    <Legend />
-                    <Line
-                      yAxisId="left"
-                      type="monotone"
-                      dataKey="participants"
-                      stroke="#6366f1"
-                      strokeWidth={2}
-                      dot={{ fill: '#6366f1' }}
-                      name="참가자"
-                    />
-                    <Line
-                      yAxisId="right"
-                      type="monotone"
-                      dataKey="submissions"
-                      stroke="#3b82f6"
-                      strokeWidth={2}
-                      dot={{ fill: '#3b82f6' }}
-                      name="제출"
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </S.ChartCard>
-
-              <S.ChartCard>
-                <S.ChartHeader>
-                  <S.ChartTitle>
-                    <FaUsers />
-                    참가자 등급별 분포
-                  </S.ChartTitle>
-                </S.ChartHeader>
-                <ResponsiveContainer width="100%" height={300}>
-                  <PieChart>
-                    <Pie
-                      data={contestStats.rankDistribution}
-                      cx="50%"
-                      cy="50%"
-                      innerRadius={60}
-                      outerRadius={100}
-                      dataKey="count"
-                      label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
-                    >
-                      {contestStats.rankDistribution.map((_, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                      ))}
-                    </Pie>
-                    <Tooltip />
-                  </PieChart>
-                </ResponsiveContainer>
-              </S.ChartCard>
-
-              <S.ChartCard>
-                <S.ChartHeader>
-                  <S.ChartTitle>
-                    <FaChartBar />
-                    대회별 평균 점수
-                  </S.ChartTitle>
-                </S.ChartHeader>
-                <ResponsiveContainer width="100%" height={300}>
-                  <BarChart data={contestStats.contestScores}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <Tooltip />
-                    <Bar dataKey="averageScore" fill="#6366f1" />
-                  </BarChart>
-                </ResponsiveContainer>
-              </S.ChartCard>
-
-              <S.ChartCard>
-                <S.ChartHeader>
-                  <S.ChartTitle>
-                    <FaClock />
-                    시간대별 참가자 수
-                  </S.ChartTitle>
-                </S.ChartHeader>
-                <ResponsiveContainer width="100%" height={300}>
-                  <AreaChart data={contestStats.hourlyParticipation}>
-                    <defs>
-                      <linearGradient id="colorParticipants" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#6366f1" stopOpacity={0.8} />
-                        <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
-                      </linearGradient>
-                    </defs>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="hour" />
-                    <YAxis />
-                    <Tooltip />
-                    <Area
-                      type="monotone"
-                      dataKey="participants"
-                      stroke="#6366f1"
-                      fillOpacity={1}
-                      fill="url(#colorParticipants)"
-                    />
-                  </AreaChart>
-                </ResponsiveContainer>
-              </S.ChartCard>
-
-              <S.ChartCard>
-                <S.ChartHeader>
-                  <S.ChartTitle>
-                    <FaChartLine />
-                    문제별 정답률
-                  </S.ChartTitle>
-                </S.ChartHeader>
-                <ResponsiveContainer width="100%" height={300}>
-                  <BarChart data={contestStats.problemSuccess} layout="vertical">
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis type="number" domain={[0, 100]} />
-                    <YAxis dataKey="problem" type="category" width={100} />
-                    <Tooltip />
-                    <Bar dataKey="successRate" fill="#6366f1">
-                      {contestStats.problemSuccess.map((entry, index) => (
-                        <Cell
-                          key={`cell-${index}`}
-                          fill={entry.successRate > 50 ? '#6366f1' : '#ef4444'}
-                        />
-                      ))}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
-              </S.ChartCard>
-
-              <S.ChartCard>
-                <S.ChartHeader>
-                  <S.ChartTitle>
-                    <FaTrophy />
-                    상위 랭커 분포
-                  </S.ChartTitle>
-                </S.ChartHeader>
-                <ResponsiveContainer width="100%" height={300}>
-                  <LineChart data={contestStats.topRankers}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="month" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Line
-                      type="monotone"
-                      dataKey="gold"
-                      stroke="#ffd700"
-                      strokeWidth={2}
-                      name="금메달"
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="silver"
-                      stroke="#c0c0c0"
-                      strokeWidth={2}
-                      name="은메달"
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="bronze"
-                      stroke="#cd7f32"
-                      strokeWidth={2}
-                      name="동메달"
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </S.ChartCard>
-            </S.ChartGrid>
-          </>
-        );
-
-      case 'submission':
-        return (
-          <>
-            <S.StatGrid>
-              {submissionStats.cards.map((card, index) => (
-                <StatCard key={card.title} {...card} delay={index * 0.1} />
-              ))}
-            </S.StatGrid>
-            <S.ChartGrid>
-              <S.ChartCard>
-                <S.ChartHeader>
-                  <S.ChartTitle>
-                    <FaChartBar />
-                    시간대별 제출 현황
-                  </S.ChartTitle>
-                </S.ChartHeader>
-                <ResponsiveContainer width="100%" height={300}>
-                  <BarChart data={submissionStats.hourlyData}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="hour" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Bar dataKey="accepted" name="정답" stackId="a" fill="#6366f1" />
-                    <Bar dataKey="wrong" name="오답" stackId="a" fill="#ef4444" />
-                  </BarChart>
-                </ResponsiveContainer>
-              </S.ChartCard>
-
-              <S.ChartCard>
-                <S.ChartHeader>
-                  <S.ChartTitle>
-                    <FaChartLine />
-                    주간 제출 추이
-                  </S.ChartTitle>
-                </S.ChartHeader>
-                <ResponsiveContainer width="100%" height={300}>
-                  <LineChart data={submissionStats.weeklyData}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="day" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Line
-                      type="monotone"
-                      dataKey="total"
-                      name="전체 제출"
-                      stroke="#6366f1"
-                      strokeWidth={2}
-                      dot={{ fill: '#6366f1' }}
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="accepted"
-                      name="정답"
-                      stroke="#10b981"
-                      strokeWidth={2}
-                      dot={{ fill: '#10b981' }}
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </S.ChartCard>
-
-              <S.ChartCard>
-                <S.ChartHeader>
-                  <S.ChartTitle>
-                    <FaCode />
-                    언어별 제출 비율
-                  </S.ChartTitle>
-                </S.ChartHeader>
-                <ResponsiveContainer width="100%" height={300}>
-                  <PieChart>
-                    <Pie
-                      data={submissionStats.languageData}
-                      cx="50%"
-                      cy="50%"
-                      innerRadius={60}
-                      outerRadius={100}
-                      dataKey="count"
-                      label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
-                    >
-                      {submissionStats.languageData.map((_, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                      ))}
-                    </Pie>
-                    <Tooltip />
-                  </PieChart>
-                </ResponsiveContainer>
-              </S.ChartCard>
-
-              <S.ChartCard>
-                <S.ChartHeader>
-                  <S.ChartTitle>
-                    <FaClock />
-                    실행 시간 분포
-                  </S.ChartTitle>
-                </S.ChartHeader>
-                <ResponsiveContainer width="100%" height={300}>
-                  <AreaChart data={submissionStats.runtimeData}>
-                    <defs>
-                      <linearGradient id="colorRuntime" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#6366f1" stopOpacity={0.8} />
-                        <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
-                      </linearGradient>
-                    </defs>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="range" />
-                    <YAxis />
-                    <Tooltip />
-                    <Area
-                      type="monotone"
-                      dataKey="count"
-                      stroke="#6366f1"
-                      fillOpacity={1}
-                      fill="url(#colorRuntime)"
-                    />
-                  </AreaChart>
-                </ResponsiveContainer>
-              </S.ChartCard>
-
-              <S.ChartCard>
-                <S.ChartHeader>
-                  <S.ChartTitle>
-                    <FaChartBar />
-                    오답 유형 분석
-                  </S.ChartTitle>
-                </S.ChartHeader>
-                <ResponsiveContainer width="100%" height={300}>
-                  <BarChart data={submissionStats.errorTypes} layout="vertical">
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis type="number" />
-                    <YAxis dataKey="type" type="category" width={150} />
-                    <Tooltip />
-                    <Bar dataKey="count" fill="#ef4444">
-                      {submissionStats.errorTypes.map((_, index) => (
-                        <Cell
-                          key={`cell-${index}`}
-                          fill={`rgba(239, 68, 68, ${0.4 + (index / submissionStats.errorTypes.length) * 0.6})`}
-                        />
-                      ))}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
-              </S.ChartCard>
-
-              <S.ChartCard>
-                <S.ChartHeader>
-                  <S.ChartTitle>
-                    <FaChartLine />
-                    메모리 사용량 추이
-                  </S.ChartTitle>
-                </S.ChartHeader>
-                <ResponsiveContainer width="100%" height={300}>
-                  <AreaChart data={submissionStats.memoryUsage}>
-                    <defs>
-                      <linearGradient id="colorMemory" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.8} />
-                        <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
-                      </linearGradient>
-                    </defs>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="range" />
-                    <YAxis />
-                    <Tooltip />
-                    <Area
-                      type="monotone"
-                      dataKey="count"
-                      stroke="#3b82f6"
-                      fillOpacity={1}
-                      fill="url(#colorMemory)"
-                    />
-                  </AreaChart>
-                </ResponsiveContainer>
-              </S.ChartCard>
-            </S.ChartGrid>
-          </>
-        );
-    }
-  };
+  const renderSubmissionCharts = () => (
+    <>
+      <S.ChartGrid>
+        <S.ChartCard>
+          <S.ChartHeader>
+            <S.ChartTitle>
+              <FaChartBar /> 시간대별 제출 현황
+            </S.ChartTitle>
+          </S.ChartHeader>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={submissionStats.submissionData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="hour" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="accepted" name="정답" stackId="a" fill="#6366f1" />
+              <Bar dataKey="wrong" name="오답" stackId="a" fill="#ef4444" />
+            </BarChart>
+          </ResponsiveContainer>
+        </S.ChartCard>
+      </S.ChartGrid>
+    </>
+  );
 
   return (
     <S.Container>
       <S.Header>
-        <S.Title>
-          통계 <span>현황</span>
-        </S.Title>
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <S.Title>
+            통계 <span>현황</span>
+          </S.Title>
+        </motion.div>
+
         <S.Controls>
           <S.ViewSelector>
             <S.ViewButton
               isActive={currentView === 'problem'}
               onClick={() => setCurrentView('problem')}
             >
-              <FaCode />
-              문제
+              <FaCode /> 문제
             </S.ViewButton>
             <S.ViewButton
               isActive={currentView === 'contest'}
               onClick={() => setCurrentView('contest')}
             >
-              <FaTrophy />
-              대회
+              <FaTrophy /> 대회
             </S.ViewButton>
             <S.ViewButton
               isActive={currentView === 'submission'}
               onClick={() => setCurrentView('submission')}
             >
-              <FaChartLine />
-              제출
+              <FaChartLine /> 제출
             </S.ViewButton>
           </S.ViewSelector>
           <S.DateSelector>
-            <FaCalendarAlt />
-            최근 6개월
+            <FaCalendarAlt /> 최근 6개월
           </S.DateSelector>
         </S.Controls>
       </S.Header>
@@ -799,7 +326,20 @@ const Statistics = () => {
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.2 }}
         >
-          {renderContent()}
+          <S.StatGrid>
+            {(currentView === 'problem'
+              ? problemStats.cards
+              : currentView === 'contest'
+                ? contestStats.cards
+                : submissionStats.cards
+            ).map((card, index) => (
+              <StatCard key={card.title} {...card} delay={index * 0.1} />
+            ))}
+          </S.StatGrid>
+
+          {currentView === 'problem' && renderProblemCharts()}
+          {currentView === 'contest' && renderContestCharts()}
+          {currentView === 'submission' && renderSubmissionCharts()}
         </S.Content>
       </AnimatePresence>
     </S.Container>

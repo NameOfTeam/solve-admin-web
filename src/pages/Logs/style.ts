@@ -1,22 +1,23 @@
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
-import { StatusType, ButtonProps, ToggleProps } from './types';
+import { ButtonProps, StatusType, ToggleProps } from './types';
 
-const getLevelColor = (level?: StatusType) => {
+const getLevelColor = (level: StatusType) => {
   const colors = {
-    info: '#6366f1',
-    warn: '#f59e0b',
-    error: '#ef4444',
-    debug: '#10b981',
-    high: '#ef4444',
-    medium: '#f59e0b',
-    low: '#10b981',
-    success: '#10b981',
-    failure: '#ef4444',
-    warning: '#f59e0b',
-    blocked: '#ef4444',
+    info: '#6366f1', // 인디고
+    warn: '#f59e0b', // 황색
+    error: '#ef4444', // 적색
+    debug: '#10b981', // 초록
+    high: '#ef4444', // 적색
+    medium: '#f59e0b', // 황색
+    low: '#10b981', // 초록
+    success: '#10b981', // 초록
+    failure: '#ef4444', // 적색
+    blocked: '#ef4444', // 적색
+  } as {
+    [key in StatusType]: string;
   };
-  return level ? colors[level] || '#6366f1' : '#6366f1';
+  return colors[level] || '#6366f1';
 };
 
 export const Container = styled.div`
@@ -69,6 +70,18 @@ export const Title = styled.h1`
   color: #1e293b;
   font-weight: 800;
   letter-spacing: -0.02em;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
+    border-radius: 2px;
+  }
 
   span {
     background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
@@ -87,9 +100,10 @@ export const Controls = styled.div`
   gap: 1.5rem;
   align-items: center;
 
-  @media (max-width: 1024px) {
-    width: 100%;
+  @media (max-width: 768px) {
     flex-direction: column;
+    width: 100%;
+    gap: 1rem;
   }
 `;
 
@@ -103,9 +117,7 @@ export const ViewSelector = styled.div`
 
   @media (max-width: 768px) {
     width: 100%;
-    overflow-x: auto;
-    padding: 0.5rem;
-    gap: 0.25rem;
+    justify-content: space-between;
   }
 `;
 
@@ -117,9 +129,10 @@ export const ViewButton = styled.button<ButtonProps>`
   border-radius: 8px;
   font-weight: 500;
   transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
   background: ${({ isActive }) => (isActive ? '#6366f1' : 'transparent')};
   color: ${({ isActive }) => (isActive ? 'white' : '#64748b')};
-  white-space: nowrap;
 
   svg {
     width: 16px;
@@ -128,6 +141,11 @@ export const ViewButton = styled.button<ButtonProps>`
 
   &:hover {
     background: ${({ isActive }) => (isActive ? '#6366f1' : '#f1f5f9')};
+  }
+
+  @media (max-width: 768px) {
+    flex: 1;
+    justify-content: center;
   }
 `;
 
@@ -148,8 +166,7 @@ export const SearchForm = styled.form`
 
 export const SearchInput = styled.input`
   width: 300px;
-  padding: 0.75rem 1rem;
-  padding-right: 3rem;
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
   border-radius: 12px;
   border: 2px solid #e2e8f0;
   background: white;
@@ -176,6 +193,9 @@ export const SearchButton = styled.button`
   color: #6366f1;
   padding: 0.5rem;
   border-radius: 8px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
 
   &:hover {
     background: #f1f5f9;
@@ -189,9 +209,10 @@ export const ToolButton = styled.button<ButtonProps>`
   width: 40px;
   height: 40px;
   border-radius: 10px;
-  color: ${({ isActive }) => (isActive ? '#6366f1' : '#64748b')};
-  background: white;
   border: 2px solid ${({ isActive }) => (isActive ? '#6366f1' : '#e2e8f0')};
+  background: white;
+  color: ${({ isActive }) => (isActive ? '#6366f1' : '#64748b')};
+  cursor: pointer;
   transition: all 0.2s;
 
   svg {
@@ -200,9 +221,21 @@ export const ToolButton = styled.button<ButtonProps>`
   }
 
   &:hover {
-    background: #f1f5f9;
     border-color: #6366f1;
     color: #6366f1;
+  }
+
+  .animate-spin {
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
 `;
 
@@ -303,10 +336,11 @@ export const StatChange = styled.div<{ isPositive: boolean }>`
   border-radius: 9999px;
   font-size: 0.875rem;
   font-weight: 500;
-  background: ${({ isPositive }) =>
-    isPositive ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)'};
+  background: ${({ isPositive }) => (isPositive ? 'rgba(16,185,129,0.1)' : 'rgba(239,68,68,0.1)')};
   color: ${({ isPositive }) => (isPositive ? '#059669' : '#dc2626')};
 `;
+
+// ... (앞의 스타일 컴포넌트들에 이어서)
 
 export const ChartGrid = styled.div`
   display: grid;
@@ -327,9 +361,7 @@ export const ChartCard = styled.div`
   transition: all 0.3s ease;
 
   &:hover {
-    box-shadow:
-      0 4px 6px -1px rgba(0, 0, 0, 0.1),
-      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     transform: translateY(-2px);
   }
 `;
@@ -387,6 +419,9 @@ export const CloseButton = styled.button<ButtonProps>`
   color: #64748b;
   padding: 0.5rem;
   border-radius: 8px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
   transition: all 0.2s;
 
   &:hover {
@@ -415,9 +450,10 @@ export const TimeRangeButton = styled.button<ButtonProps>`
   padding: 0.75rem;
   border-radius: 8px;
   font-size: 0.875rem;
+  border: 1px solid ${({ isActive }) => (isActive ? '#6366f1' : '#e2e8f0')};
   background: ${({ isActive }) => (isActive ? '#6366f1' : 'white')};
   color: ${({ isActive }) => (isActive ? 'white' : '#64748b')};
-  border: 1px solid ${({ isActive }) => (isActive ? '#6366f1' : '#e2e8f0')};
+  cursor: pointer;
   transition: all 0.2s;
 
   &:hover {
@@ -439,6 +475,7 @@ export const LevelButton = styled.button<ButtonProps & { level: string }>`
   background: ${({ isActive, level }) => (isActive ? getLevelColor(level as StatusType) : 'white')};
   color: ${({ isActive, level }) => (isActive ? 'white' : getLevelColor(level as StatusType))};
   border: 1px solid ${({ level }) => getLevelColor(level as StatusType)};
+  cursor: pointer;
   transition: all 0.2s;
 
   &:hover {
@@ -452,9 +489,10 @@ export const ToggleSwitch = styled.button<ToggleProps>`
   border-radius: 12px;
   background: ${({ isActive }) => (isActive ? '#6366f1' : '#e2e8f0')};
   position: relative;
-  transition: all 0.2s;
   padding: 2px;
   cursor: pointer;
+  border: none;
+  transition: all 0.2s;
 `;
 
 export const ToggleSlider = styled.div<ToggleProps>`
@@ -514,7 +552,7 @@ export const LogList = styled.div`
   }
 `;
 
-export const LogItem = styled.div<{ status?: StatusType }>`
+export const LogItem = styled.div<{ status: StatusType }>`
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -530,20 +568,12 @@ export const LogItem = styled.div<{ status?: StatusType }>`
 export const LogTime = styled.div`
   font-size: 0.875rem;
   color: #64748b;
-  white-space: nowrap;
-  min-width: 150px;
+  min-width: 100px;
 `;
 
 export const LogContent = styled.div`
   flex: 1;
   min-width: 0;
-`;
-
-export const LogType = styled.span`
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #6366f1;
-  margin-right: 0.5rem;
 `;
 
 export const LogMessage = styled.div`
@@ -554,20 +584,17 @@ export const LogMessage = styled.div`
   text-overflow: ellipsis;
 `;
 
-export const LogStatus = styled.div<{ status?: StatusType }>`
+export const LogStatus = styled.div<{ status: StatusType }>`
   padding: 0.25rem 0.75rem;
   border-radius: 9999px;
   font-size: 0.875rem;
   font-weight: 500;
-  white-space: nowrap;
   background: ${({ status }) =>
-    status
-      ? `rgba(${getLevelColor(status)
-          .slice(1)
-          .match(/.{2}/g)
-          ?.map((x) => parseInt(x, 16))
-          .join(', ')}, 0.1)`
-      : 'transparent'};
+    `rgba(${getLevelColor(status)
+      .slice(1)
+      .match(/.{2}/g)
+      ?.map((x) => parseInt(x, 16))
+      .join(', ')}, 0.1)`};
   color: ${({ status }) => getLevelColor(status)};
 `;
 
