@@ -78,7 +78,7 @@ export const UserContainer = styled(motion.div)`
 `;
 
 export const UserHeader = styled.div`
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 `;
 
 export const AvatarSection = styled.div`
@@ -132,6 +132,7 @@ export const DetailsList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+  margin-bottom: 2rem;
 `;
 
 export const DetailItem = styled(motion.div)`
@@ -144,6 +145,213 @@ export const DetailItem = styled(motion.div)`
   svg {
     color: #3b82f6;
     font-size: 1.2em;
+  }
+`;
+
+export const StatsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+export const StatCard = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: #f8fafc;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+
+  svg {
+    color: #3b82f6;
+    font-size: 1.5rem;
+  }
+`;
+
+export const StatValue = styled.div`
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  line-height: 1.2;
+`;
+
+export const StatLabel = styled.div`
+  font-size: 0.9rem;
+  color: #64748b;
+`;
+
+export const Section = styled.section`
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e2e8f0;
+  animation: fadeIn 0.5s ease;
+
+  &:first-of-type {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+`;
+
+export const SectionTitle = styled.h2`
+  font-size: 1.5rem;
+  color: #1e293b;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  svg {
+    color: #3b82f6;
+  }
+`;
+
+export const Introduction = styled.p`
+  color: #475569;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  padding: 1.5rem;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+  }
+`;
+
+export const GrassSection = styled.div`
+  margin-bottom: 3rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+`;
+
+export const GrassYear = styled.h3`
+  font-size: 1.25rem;
+  color: #1e293b;
+  font-weight: 600;
+  margin-bottom: 1rem;
+`;
+
+export const GrassContainer = styled.div`
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+`;
+
+export const GrassWeek = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+`;
+
+export const GrassDay = styled.div<{ color: string }>`
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  background-color: ${({ color }) => color};
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+`;
+
+export const GrassLegend = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #64748b;
+`;
+
+export const GrassLegendItem = styled.div<{ color: string }>`
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+
+  &::before {
+    content: '';
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    background-color: ${({ color }) => color};
+  }
+`;
+
+export const ConnectionsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+`;
+
+export const ConnectionCard = styled(motion.a)`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+  text-decoration: none;
+  transition: all 0.2s ease;
+
+  svg {
+    color: #3b82f6;
+  }
+
+  &:hover {
+    background: #f1f5f9;
+    border-color: #3b82f6;
+    color: #1e293b;
+
+    svg {
+      color: #2563eb;
+    }
   }
 `;
 

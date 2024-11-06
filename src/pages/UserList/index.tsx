@@ -100,7 +100,8 @@ const UserList = () => {
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}>
+            transition={{ duration: 0.5 }}
+          >
             <S.Title>
               사용자 <span>관리</span>
             </S.Title>
@@ -110,7 +111,8 @@ const UserList = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}>
+          transition={{ delay: 0.2 }}
+        >
           <S.SearchBar>
             <S.SearchInputWrapper>
               <FaSearch className="search-icon" />
@@ -125,7 +127,8 @@ const UserList = () => {
                   <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.8 }}>
+                    exit={{ opacity: 0, scale: 0.8 }}
+                  >
                     <S.SearchSpinner>
                       <FaSpinner />
                     </S.SearchSpinner>
@@ -149,7 +152,8 @@ const UserList = () => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}>
+            transition={{ duration: 0.5 }}
+          >
             <S.LoadingSpinner>
               <motion.div
                 animate={{ rotate: 360 }}
@@ -157,7 +161,8 @@ const UserList = () => {
                   duration: 1,
                   repeat: Infinity,
                   ease: 'linear',
-                }}>
+                }}
+              >
                 <FaSpinner />
               </motion.div>
               <span>사용자 목록을 불러오는 중...</span>
@@ -167,7 +172,8 @@ const UserList = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}>
+            transition={{ duration: 0.5 }}
+          >
             <S.ErrorMessage>
               <strong>오류가 발생했습니다</strong>
               사용자 목록을 불러오는데 실패했습니다.
@@ -197,7 +203,8 @@ const UserList = () => {
                             role={user.role}
                             className={
                               user.role === 'ADMIN' ? 'role-badge-admin' : 'role-badge-user'
-                            }>
+                            }
+                          >
                             {getRoleIcon(user.role)}
                             {user.role === 'ADMIN' ? '관리자' : '일반 사용자'}
                           </S.RoleBadge>
@@ -219,7 +226,8 @@ const UserList = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}>
+              exit={{ opacity: 0, y: 20 }}
+            >
               <S.LoadingSpinner>
                 <FaSpinner />
                 <span>추가 사용자를 불러오는 중...</span>

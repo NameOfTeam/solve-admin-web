@@ -132,7 +132,8 @@ const CommentThread = ({
                 if (window.confirm('정말 삭제하시겠습니까?')) {
                   deleteMutation.mutate();
                 }
-              }}>
+              }}
+            >
               <FaTrash /> 삭제
             </S.ActionButton>
           </S.ActionButtons>
@@ -145,7 +146,8 @@ const CommentThread = ({
               if (editContent.trim()) {
                 editMutation.mutate(editContent);
               }
-            }}>
+            }}
+          >
             <S.CommentInput value={editContent} onChange={(e) => setEditContent(e.target.value)} />
             <S.CommentButton type="submit" disabled={editMutation.isPending}>
               {editMutation.isPending ? <FaSpinner /> : '수정하기'}
@@ -162,7 +164,8 @@ const CommentThread = ({
               if (replyContent.trim()) {
                 replyMutation.mutate(replyContent);
               }
-            }}>
+            }}
+          >
             <S.CommentInput
               value={replyContent}
               onChange={(e) => setReplyContent(e.target.value)}
@@ -269,7 +272,8 @@ const IdeaCard = ({ idea, problemId }: { idea: ProblemIdeaResponse; problemId: s
             if (commentContent.trim()) {
               commentMutation.mutate(commentContent);
             }
-          }}>
+          }}
+        >
           <S.CommentInput
             value={commentContent}
             onChange={(e) => setCommentContent(e.target.value)}
@@ -277,7 +281,8 @@ const IdeaCard = ({ idea, problemId }: { idea: ProblemIdeaResponse; problemId: s
           />
           <S.CommentButton
             type="submit"
-            disabled={!commentContent.trim() || commentMutation.isPending}>
+            disabled={!commentContent.trim() || commentMutation.isPending}
+          >
             {commentMutation.isPending ? <FaSpinner /> : '댓글 작성'}
           </S.CommentButton>
         </S.CommentForm>

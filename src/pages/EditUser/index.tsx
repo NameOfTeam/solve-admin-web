@@ -1,68 +1,135 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   FaArrowLeft,
   FaSave,
   FaSpinner,
-  FaUser,
   FaLock,
   FaUserShield,
   FaCamera,
-  FaEnvelope,
+  FaTrash,
+  FaPlus,
+  FaGithub,
+  FaDiscord,
+  FaTwitter,
+  FaInstagram,
+  FaLinkedin,
+  FaTwitch,
+  FaYoutube,
+  FaSteam,
+  FaSpotify,
+  FaXbox,
+  FaFacebook,
+  FaReddit,
+  FaPaypal,
+  FaTiktok,
+  FaInfoCircle,
+  FaQuoteLeft,
+  FaMarkdown,
 } from 'react-icons/fa';
 import adminAxios from '../../libs/adminAxios';
 import * as S from './style';
+import { SiBattledotnet, SiEbay, SiLeagueoflegends } from 'react-icons/si';
+import {
+  UserConnectionAddRequest,
+  UserConnectionType,
+  UserResponse,
+  UserUpdateRequest,
+} from '../../types/user/user';
+import { toast } from 'react-toastify';
+import { AxiosError } from 'axios';
+import { ErrorResponse } from '../../types/common/error';
 
-interface UserResponse {
-  id: string;
-  username: string;
-  email: string;
-  role: string;
-}
-
-interface UpdateUserRequest {
-  password?: string;
-  role?: string;
-}
+const getSocialIcon = (type: string) => {
+  const iconProps = { size: 24 };
+  switch (type) {
+    case 'GITHUB':
+      return <FaGithub {...iconProps} />;
+    case 'DISCORD':
+      return <FaDiscord {...iconProps} />;
+    case 'TWITTER':
+      return <FaTwitter {...iconProps} />;
+    case 'X':
+      return <FaTwitter {...iconProps} />;
+    case 'INSTAGRAM':
+      return <FaInstagram {...iconProps} />;
+    case 'LINKEDIN':
+      return <FaLinkedin {...iconProps} />;
+    case 'TWITCH':
+      return <FaTwitch {...iconProps} />;
+    case 'YOUTUBE':
+      return <FaYoutube {...iconProps} />;
+    case 'STEAM':
+      return <FaSteam {...iconProps} />;
+    case 'SPOTIFY':
+      return <FaSpotify {...iconProps} />;
+    case 'XBOX':
+      return <FaXbox {...iconProps} />;
+    case 'FACEBOOK':
+      return <FaFacebook {...iconProps} />;
+    case 'REDDIT':
+      return <FaReddit {...iconProps} />;
+    case 'PAYPAL':
+      return <FaPaypal {...iconProps} />;
+    case 'TIKTOK':
+      return <FaTiktok {...iconProps} />;
+    case 'EBAY':
+      return <SiEbay {...iconProps} />;
+    case 'BATTLE_NET':
+      return <SiBattledotnet {...iconProps} />;
+    case 'LEAGUE_OF_LEGENDS':
+      return <SiLeagueoflegends {...iconProps} />;
+    default:
+      return null;
+  }
+};
 
 const EditUser = () => {
   const { userId } = useParams<{ userId: string }>();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const fileInputRef = React.useRef<HTMLInputElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [focusedField, setFocusedField] = useState<string | null>(null);
 
-  const [formData, setFormData] = React.useState<UpdateUserRequest>({
+  const [formData, setFormData] = useState<UserUpdateRequest>({
     password: '',
+    introduction: '',
     role: '',
   });
   const [previewImage, setPreviewImage] = React.useState<string | null>(null);
+  const [newConnection, setNewConnection] = useState<UserConnectionAddRequest>({
+    type: UserConnectionType.GITHUB,
+    value: '',
+  });
+  const [showAddConnection, setShowAddConnection] = useState(false);
 
-  const { data: user, status } = useQuery<UserResponse>({
+  const {
+    data: user,
+    status,
+    isSuccess,
+  } = useQuery<UserResponse>({
     queryKey: ['user', userId],
     queryFn: async () => {
-      const response = await adminAxios.get(`/users/${userId}`);
-      return response.data.data;
-    },
-    onSuccess: (data) => {
-      setFormData((prev) => ({
-        ...prev,
-        role: data.role,
-      }));
+      const { data } = await adminAxios.get(`/users/${userId}`);
+
+      return data.data;
     },
   });
 
   const updateMutation = useMutation({
-    mutationFn: async (data: UpdateUserRequest) => {
-      const payload: UpdateUserRequest = {};
+    mutationFn: async (data: UserUpdateRequest) => {
+      const payload: UserUpdateRequest = {};
       if (data.password) payload.password = data.password;
       if (data.role) payload.role = data.role;
+      if (data.introduction) payload.introduction = data.introduction;
 
       await adminAxios.patch(`/users/${userId}`, payload);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user', userId] });
-      navigate(`/users/${userId}`);
+
+      toast.success('사용자 정보가 업데이트되었습니다.');
     },
   });
 
@@ -78,11 +145,53 @@ const EditUser = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user', userId] });
+
+      toast.success('프로필 사진이 변경되었습니다.');
+    },
+    onError: (error: AxiosError) => {
+      const code = (error.response?.data as ErrorResponse).code;
+
+      toast.error(`프로필 사진 변경에 실패했습니다. (${code})`);
     },
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const addConnectionMutation = useMutation({
+    mutationFn: async (data: UserConnectionAddRequest) => {
+      await adminAxios.post(`/users/${userId}/connections`, data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['user', userId] });
+      setNewConnection({ type: UserConnectionType.GITHUB, value: '' });
+      setShowAddConnection(false);
+
+      toast.success('계정 연결이 추가되었습니다.');
+    },
+  });
+
+  const deleteConnectionMutation = useMutation({
+    mutationFn: async (connectionId: string) => {
+      await adminAxios.delete(`/users/${userId}/connections/${connectionId}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['user', userId] });
+
+      toast.success('계정 연결이 삭제되었습니다.');
+    },
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
+  ) => {
     setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleNewConnectionChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
+    setNewConnection((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
@@ -106,9 +215,29 @@ const EditUser = () => {
     updateMutation.mutate(formData);
   };
 
+  const handleAddConnection = (e: React.FormEvent) => {
+    e.preventDefault();
+    addConnectionMutation.mutate(newConnection);
+  };
+
+  const handleDeleteConnection = (connectionId: string) => {
+    if (window.confirm('정말 이 연결을 삭제하시겠습니까?')) {
+      deleteConnectionMutation.mutate(connectionId);
+    }
+  };
+
+  useEffect(() => {
+    if (isSuccess && user) {
+      setFormData((prev) => ({
+        ...prev,
+        role: user.role,
+      }));
+    }
+  }, [isSuccess, user]);
+
   if (status === 'pending') {
     return (
-      <S.Container initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+      <S.Container>
         <S.LoadingSpinner>
           <FaSpinner />
           <span>사용자 정보를 불러오는 중...</span>
@@ -119,7 +248,7 @@ const EditUser = () => {
 
   if (status === 'error' || !user) {
     return (
-      <S.Container initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+      <S.Container>
         <S.ErrorMessage>
           <strong>오류가 발생했습니다</strong>
           사용자 정보를 불러오는데 실패했습니다.
@@ -134,14 +263,16 @@ const EditUser = () => {
         <S.BackButton
           onClick={() => navigate(`/users/${userId}`)}
           whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}>
+          whileTap={{ scale: 0.98 }}
+        >
           <FaArrowLeft /> 돌아가기
         </S.BackButton>
         <S.SaveButton
           onClick={handleSubmit}
           disabled={updateMutation.isPending}
           whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}>
+          whileTap={{ scale: 0.98 }}
+        >
           {updateMutation.isPending ? (
             <>
               <FaSpinner className="spinner" /> 저장 중...
@@ -157,57 +288,37 @@ const EditUser = () => {
       <S.FormContainer
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.2 }}>
-        <S.UserProfile>
-          <S.AvatarSection>
-            <S.AvatarWrapper onClick={handleAvatarClick}>
-              <S.Avatar
-                src={previewImage || `${import.meta.env.VITE_API_URL}/avatars/${user.id}.webp`}
-                alt={user.username}
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 0.3 }}
-              />
-              <S.AvatarOverlay initial={{ opacity: 0 }} whileHover={{ opacity: 1 }}>
-                <FaCamera />
-                <span>변경</span>
-              </S.AvatarOverlay>
-            </S.AvatarWrapper>
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-              style={{ display: 'none' }}
+        transition={{ delay: 0.2 }}
+      >
+        <S.FormHeader>
+          <S.AvatarWrapper onClick={handleAvatarClick}>
+            <S.Avatar
+              src={previewImage || `${import.meta.env.VITE_API_URL}/avatars/${user.id}.webp`}
+              alt={user.username}
             />
-          </S.AvatarSection>
-
-          <S.UserInfo>
+            <S.AvatarOverlay initial={{ opacity: 0 }} whileHover={{ opacity: 1 }}>
+              <FaCamera />
+              <span>변경</span>
+            </S.AvatarOverlay>
+          </S.AvatarWrapper>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            style={{ display: 'none' }}
+          />
+          <S.UserDetails>
+            <h1>사용자 정보 수정</h1>
             <S.Username>{user.username}</S.Username>
-            <S.UserDetails>
-              <S.DetailRow>
-                <FaUser />
-                <span>아이디: {user.id}</span>
-              </S.DetailRow>
-              <S.DetailRow>
-                <FaEnvelope />
-                <span>이메일: {user.email}</span>
-              </S.DetailRow>
-              <S.DetailRow>
-                <FaUserShield />
-                <span>현재 역할: {user.role}</span>
-              </S.DetailRow>
-            </S.UserDetails>
-          </S.UserInfo>
-        </S.UserProfile>
+            <S.Email>{user.email}</S.Email>
+          </S.UserDetails>
+        </S.FormHeader>
 
         <S.FormSection>
-          <S.SectionTitle>정보 수정</S.SectionTitle>
-          <S.Form onSubmit={handleSubmit}>
-            <S.InputGroup
-              initial={{ x: -20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.4 }}>
+          <S.SectionTitle>기본 정보</S.SectionTitle>
+          <S.Form>
+            <S.InputGroup>
               <S.Label>
                 <FaLock />새 비밀번호
               </S.Label>
@@ -220,13 +331,10 @@ const EditUser = () => {
               />
             </S.InputGroup>
 
-            <S.InputGroup
-              initial={{ x: -20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.5 }}>
+            <S.InputGroup>
               <S.Label>
                 <FaUserShield />
-                역할 변경
+                역할
               </S.Label>
               <S.Select name="role" value={formData.role} onChange={handleChange}>
                 <option value="USER">일반 사용자</option>
@@ -234,14 +342,100 @@ const EditUser = () => {
               </S.Select>
             </S.InputGroup>
 
-            {(avatarMutation.isError || updateMutation.isError) && (
-              <S.ErrorMessage>
-                <strong>오류가 발생했습니다</strong>
-                사용자 정보 수정에 실패했습니다.
-              </S.ErrorMessage>
-            )}
+            <S.InputGroup>
+              <S.Label className={focusedField === 'introduction' ? 'focused' : ''}>
+                <FaInfoCircle />
+                소개
+              </S.Label>
+              <S.TextareaWrapper>
+                <FaQuoteLeft className="quote-icon" />
+                <S.Textarea
+                  name="introduction"
+                  value={formData.introduction || ''}
+                  onChange={handleChange}
+                  onFocus={() => setFocusedField('introduction')}
+                  onBlur={() => setFocusedField(null)}
+                  placeholder="사용자 소개를 입력하세요"
+                  rows={4}
+                />
+              </S.TextareaWrapper>
+              <S.InputHelp>
+                <FaMarkdown />
+                마크다운을 사용하여 소개글을 꾸밀 수 있습니다.
+              </S.InputHelp>
+            </S.InputGroup>
           </S.Form>
         </S.FormSection>
+
+        <S.FormSection>
+          <S.SectionHeader>
+            <S.SectionTitle>연결된 계정</S.SectionTitle>
+            <S.AddButton
+              onClick={() => setShowAddConnection(!showAddConnection)}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <FaPlus /> 계정 연결
+            </S.AddButton>
+          </S.SectionHeader>
+
+          {showAddConnection && (
+            <S.AddConnectionForm onSubmit={handleAddConnection}>
+              <S.Select name="type" value={newConnection.type} onChange={handleNewConnectionChange}>
+                {Object.values(UserConnectionType).map((type) => (
+                  <option key={type} value={type}>
+                    {type}
+                  </option>
+                ))}
+              </S.Select>
+              <S.Input
+                name="value"
+                value={newConnection.value}
+                onChange={handleNewConnectionChange}
+                placeholder="사용자 아이디 또는 URL을 입력하세요"
+              />
+              <S.AddConnectionButton
+                type="submit"
+                disabled={addConnectionMutation.isPending}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                {addConnectionMutation.isPending ? <FaSpinner className="spinner" /> : '추가'}
+              </S.AddConnectionButton>
+            </S.AddConnectionForm>
+          )}
+
+          <S.ConnectionsGrid>
+            {user.connections.map((connection) => (
+              <S.ConnectionCard key={connection.id}>
+                <S.ConnectionInfo>
+                  {getSocialIcon(connection.type)}
+                  <div>
+                    <S.ConnectionType>{connection.type}</S.ConnectionType>
+                    <S.ConnectionValue>{connection.value}</S.ConnectionValue>
+                  </div>
+                </S.ConnectionInfo>
+                <S.DeleteButton
+                  onClick={() => handleDeleteConnection(connection.id)}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <FaTrash />
+                </S.DeleteButton>
+              </S.ConnectionCard>
+            ))}
+          </S.ConnectionsGrid>
+        </S.FormSection>
+
+        {(avatarMutation.isError ||
+          updateMutation.isError ||
+          addConnectionMutation.isError ||
+          deleteConnectionMutation.isError) && (
+          <S.ErrorMessage>
+            <strong>오류가 발생했습니다</strong>
+            작업 처리에 실패했습니다.
+          </S.ErrorMessage>
+        )}
       </S.FormContainer>
     </S.Container>
   );
