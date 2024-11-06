@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
+import { motion } from 'framer-motion';
 
 interface ToggleProps {
   isActive: boolean;
@@ -10,7 +11,7 @@ interface ActionButtonProps {
   disabled?: boolean;
 }
 
-export const Container = styled.div`
+export const Container = styled(motion.div)`
   max-width: 1440px;
   margin: 0 auto;
   padding: 2rem;
@@ -171,7 +172,7 @@ export const Toggle = styled.div<ToggleProps>`
   transition: background 0.2s ease;
 `;
 
-export const ToggleHandle = styled.div`
+export const ToggleHandle = styled(motion.div)`
   width: 22px;
   height: 22px;
   background: white;

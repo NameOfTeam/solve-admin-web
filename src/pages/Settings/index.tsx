@@ -1,17 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import {
-  FaBell,
-  FaUserShield,
-  FaPalette,
-  FaDatabase,
-  FaServer,
-  FaToggleOn,
-  FaKey,
-  FaShieldAlt,
-  FaSave,
-  FaUndo,
-} from 'react-icons/fa';
+import { FaBell, FaUserShield, FaServer, FaKey, FaSave, FaUndo } from 'react-icons/fa';
 import * as S from './style';
 
 interface SettingOption {
@@ -137,7 +126,7 @@ const Settings: React.FC = () => {
   };
 
   return (
-    <S.Container as={motion.div} variants={containerVariants} initial="hidden" animate="visible">
+    <S.Container variants={containerVariants} initial="hidden" animate="visible">
       <S.Header>
         <S.HeaderContent>
           <S.Title>설정</S.Title>
@@ -171,10 +160,8 @@ const Settings: React.FC = () => {
                     <S.OptionLabel>{option.label}</S.OptionLabel>
                     <S.Toggle
                       isActive={settings[option.id]}
-                      onClick={() => handleToggle(option.id)}
-                    >
+                      onClick={() => handleToggle(option.id)}>
                       <S.ToggleHandle
-                        as={motion.div}
                         animate={{ x: settings[option.id] ? 22 : 2 }}
                         transition={{ type: 'spring', stiffness: 500, damping: 30 }}
                       />

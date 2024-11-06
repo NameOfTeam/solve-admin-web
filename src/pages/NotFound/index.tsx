@@ -55,7 +55,7 @@ const NotFound = () => {
   };
 
   return (
-    <S.Container as={motion.div} variants={containerVariants} initial="initial" animate="animate">
+    <S.Container variants={containerVariants} initial="initial" animate="animate">
       <S.Background>
         <motion.div
           variants={circleVariants}
@@ -79,8 +79,7 @@ const NotFound = () => {
               rotate: 360,
               scale: [1, 1.2, 1],
               transition: { duration: 3, repeat: Infinity, ease: 'linear' },
-            }}
-          >
+            }}>
             <FaExclamationTriangle size={60} />
           </motion.div>
           <motion.span variants={numberVariants}>4</motion.span>
