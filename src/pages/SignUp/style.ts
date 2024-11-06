@@ -140,7 +140,6 @@ export const LoadingSpinner = styled.div`
   }
 `;
 
-// TODO()
 export const FormTitle = styled.h2`
   font-size: 1.75rem;
   font-weight: 700;

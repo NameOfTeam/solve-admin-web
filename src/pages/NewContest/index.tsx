@@ -77,7 +77,6 @@ const NewContest = () => {
     },
   });
 
-  // Users Query
   const {
     data: userData,
     fetchNextPage: fetchNextUsers,
@@ -102,7 +101,6 @@ const NewContest = () => {
         : undefined,
   });
 
-  // Problems Query
   const {
     data: problemData,
     fetchNextPage: fetchNextProblems,
@@ -207,8 +205,7 @@ const NewContest = () => {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
+        transition={{ duration: 0.5 }}>
         <S.Header>
           <S.Title>새 대회 생성</S.Title>
         </S.Header>
@@ -245,14 +242,12 @@ const NewContest = () => {
               <S.VisibilityToggle>
                 <S.VisibilityOption
                   isSelected={formData.visibility === 'PUBLIC'}
-                  onClick={() => handleVisibilityChange('PUBLIC')}
-                >
+                  onClick={() => handleVisibilityChange('PUBLIC')}>
                   <FaEye /> 공개
                 </S.VisibilityOption>
                 <S.VisibilityOption
                   isSelected={formData.visibility === 'PRIVATE'}
-                  onClick={() => handleVisibilityChange('PRIVATE')}
-                >
+                  onClick={() => handleVisibilityChange('PRIVATE')}>
                   <FaEyeSlash /> 비공개
                 </S.VisibilityOption>
               </S.VisibilityToggle>
@@ -367,8 +362,7 @@ const NewContest = () => {
           <S.Modal
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-          >
+            exit={{ opacity: 0, scale: 0.9 }}>
             <S.ModalContent>
               <S.ModalHeader>
                 <h3>운영진 선택</h3>
@@ -388,8 +382,7 @@ const NewContest = () => {
                     <S.UserItem
                       key={user.id}
                       isSelected={!!selectedOperators.find((op) => op.id === user.id)}
-                      onClick={() => toggleOperator(user)}
-                    >
+                      onClick={() => toggleOperator(user)}>
                       <FaUsers />
                       {user.username}
                     </S.UserItem>
@@ -411,8 +404,7 @@ const NewContest = () => {
           <S.Modal
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-          >
+            exit={{ opacity: 0, scale: 0.9 }}>
             <S.ModalContent>
               <S.ModalHeader>
                 <h3>참가자 선택</h3>
@@ -432,8 +424,7 @@ const NewContest = () => {
                     <S.UserItem
                       key={user.id}
                       isSelected={!!selectedParticipants.find((p) => p.id === user.id)}
-                      onClick={() => toggleParticipant(user)}
-                    >
+                      onClick={() => toggleParticipant(user)}>
                       <FaUsers />
                       {user.username}
                     </S.UserItem>
@@ -455,8 +446,7 @@ const NewContest = () => {
           <S.Modal
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-          >
+            exit={{ opacity: 0, scale: 0.9 }}>
             <S.ModalContent>
               <S.ModalHeader>
                 <h3>문제 선택</h3>
@@ -476,8 +466,7 @@ const NewContest = () => {
                     <S.ProblemItem
                       key={problem.id}
                       isSelected={!!selectedProblems.find((p) => p.id === problem.id)}
-                      onClick={() => toggleProblem(problem)}
-                    >
+                      onClick={() => toggleProblem(problem)}>
                       <FaCode />
                       {problem.title}
                     </S.ProblemItem>

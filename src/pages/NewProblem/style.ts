@@ -24,7 +24,6 @@ export const Resizer = styled.div`
   }
 `;
 
-// Source Panel Styles
 export const SourcePanel = styled.div<{ width: number }>`
   width: ${({ width }) => width}%;
   height: 100%;
@@ -135,7 +134,6 @@ export const Button = styled.button`
   }
 `;
 
-// Preview Panel Styles
 export const PreviewPanel = styled.div<{ width: number }>`
   width: ${({ width }) => width}%;
   height: 100%;

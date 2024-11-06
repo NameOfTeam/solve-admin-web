@@ -81,12 +81,10 @@ const Settings: React.FC = () => {
   };
 
   const handleSave = () => {
-    // API 호출 로직
     setIsDirty(false);
   };
 
   const handleReset = () => {
-    // 초기 설정으로 복원
     setSettings({
       emailNotifications: true,
       slackIntegration: false,
@@ -160,8 +158,7 @@ const Settings: React.FC = () => {
                     <S.OptionLabel>{option.label}</S.OptionLabel>
                     <S.Toggle
                       isActive={settings[option.id]}
-                      onClick={() => handleToggle(option.id)}
-                    >
+                      onClick={() => handleToggle(option.id)}>
                       <S.ToggleHandle
                         animate={{ x: settings[option.id] ? 22 : 2 }}
                         transition={{ type: 'spring', stiffness: 500, damping: 30 }}

@@ -71,10 +71,6 @@ export const Title = styled.h1`
   }
 `;
 
-export const Controls = styled.div`
-  margin-bottom: 2rem;
-`;
-
 export const SearchBar = styled.div`
   display: flex;
   gap: 1rem;
@@ -189,6 +185,8 @@ export const UserCard = styled(motion.div)`
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   position: relative;
   overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
 
   &::before {
     content: '';
@@ -203,30 +201,37 @@ export const UserCard = styled(motion.div)`
     transition: transform 0.3s ease;
   }
 
-  &:hover::before {
-    transform: scaleX(1);
-  }
-`;
+  &:hover {
+    border-color: #3b82f6;
+    box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.1);
 
-export const AvatarContainer = styled.div`
-  position: relative;
+    &::before {
+      transform: scaleX(1);
+    }
 
-  &::after {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
-    border-radius: 18px;
-    z-index: 0;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
+    .role-badge-admin {
+      background: linear-gradient(
+        135deg,
+        rgba(99, 102, 241, 0.15) 0%,
+        rgba(59, 130, 246, 0.15) 100%
+      );
+      border-color: rgba(99, 102, 241, 0.3);
+    }
 
-  &:hover::after {
-    opacity: 1;
+    .role-badge-user {
+      background: linear-gradient(
+        135deg,
+        rgba(100, 116, 139, 0.15) 0%,
+        rgba(71, 85, 105, 0.15) 100%
+      );
+      border-color: rgba(100, 116, 139, 0.3);
+    }
+
+    .view-details-icon {
+      opacity: 1;
+      color: #3b82f6;
+      transform: translateX(4px);
+    }
   }
 `;
 
@@ -274,6 +279,26 @@ export const Email = styled.p`
   }
 `;
 
+export const UserCardFooter = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+`;
+
+export const ViewDetailsIcon = styled(motion.div)`
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.3s ease;
+
+  svg {
+    font-size: 1rem;
+  }
+`;
+
 export const RoleBadge = styled.span<{ role: string }>`
   display: inline-flex;
   align-items: center;
@@ -290,21 +315,11 @@ export const RoleBadge = styled.span<{ role: string }>`
     background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
     color: #6366f1;
     border: 1px solid rgba(99, 102, 241, 0.2);
-    
-    &:hover {
-      background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(59, 130, 246, 0.15) 100%);
-      border-color: rgba(99, 102, 241, 0.3);
-    }
     `
       : `
     background: linear-gradient(135deg, rgba(100, 116, 139, 0.1) 0%, rgba(71, 85, 105, 0.1) 100%);
     color: #64748b;
     border: 1px solid rgba(100, 116, 139, 0.2);
-    
-    &:hover {
-      background: linear-gradient(135deg, rgba(100, 116, 139, 0.15) 0%, rgba(71, 85, 105, 0.15) 100%);
-      border-color: rgba(100, 116, 139, 0.3);
-    }
     `}
 `;
 

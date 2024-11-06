@@ -235,7 +235,6 @@ export const ApplyButton = styled(motion.button)`
   }
 `;
 
-// DatePicker 커스텀 스타일
 export const GlobalStyle = styled.div`
   .react-datepicker {
     font-family: inherit;

@@ -16,6 +16,8 @@ import Signup from '../../pages/SignUp';
 import Settings from '../../pages/Settings';
 import NotFound from '../../pages/NotFound';
 import Statistics from '../../pages/Statistics';
+import User from '../../pages/User';
+import EditUser from '../../pages/EditUser';
 
 const Router = () => {
   return (
@@ -24,6 +26,9 @@ const Router = () => {
         <Route path="/" element={<RootLayout />}>
           <Route index element={<Home />} />
           <Route path="/users" element={<UserList />} />
+          <Route path="/users/:userId" element={<User />} />
+          <Route path="/users/:userId/edit" element={<EditUser />} />
+
           <Route path="/problems" element={<ProblemList />} />
           <Route path="/problems/:problemId" element={<Problem />} />
           <Route path="/problems/new" element={<NewProblem />} />

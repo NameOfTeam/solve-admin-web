@@ -25,7 +25,6 @@ const ProblemPreview = ({ problem, width = 50 }: ProblemPreviewProps) => {
             code({ className, children }) {
               const match = /language-(\w+)/.exec(className || '');
               return match ? (
-                // 코드 (```)
                 <SyntaxHighlighter style={nord} language={match[1]} PreTag="div">
                   {String(children)
                     .replace(/\n$/, '')
@@ -47,8 +46,7 @@ const ProblemPreview = ({ problem, width = 50 }: ProblemPreviewProps) => {
                     padding: '1px 15px',
                     borderRadius: '10px',
                   }}
-                  {...props}
-                >
+                  {...props}>
                   {children}
                 </blockquote>
               );
@@ -69,8 +67,7 @@ const ProblemPreview = ({ problem, width = 50 }: ProblemPreviewProps) => {
                 </span>
               );
             },
-          }}
-        >
+          }}>
           {problem.content}
         </S.PreviewSectionContent>
       </S.PreviewSection>
