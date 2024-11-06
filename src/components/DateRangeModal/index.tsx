@@ -69,7 +69,8 @@ const DateRangeModal: React.FC<DateRangeModalProps> = ({
             initial={{ scale: 0.9, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.9, opacity: 0, y: 20 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 30 }}>
+            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+          >
             <S.ModalHeader>
               <S.Title>
                 <FaCalendarAlt /> 기간 선택
@@ -96,7 +97,8 @@ const DateRangeModal: React.FC<DateRangeModalProps> = ({
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 20 }}
-                    transition={{ duration: 0.2 }}>
+                    transition={{ duration: 0.2 }}
+                  >
                     <S.PresetGrid>
                       {presetRanges.map((range, index) => (
                         <S.PresetButton
@@ -104,7 +106,8 @@ const DateRangeModal: React.FC<DateRangeModalProps> = ({
                           onClick={() => handlePresetClick(range.days, index)}
                           isSelected={selectedPreset === index}
                           whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}>
+                          whileTap={{ scale: 0.98 }}
+                        >
                           {range.icon} {range.label}
                         </S.PresetButton>
                       ))}
@@ -116,7 +119,8 @@ const DateRangeModal: React.FC<DateRangeModalProps> = ({
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.2 }}>
+                    transition={{ duration: 0.2 }}
+                  >
                     <S.DatePickerContainer>
                       <S.DatePickerWrapper>
                         <S.Label>시작일</S.Label>
@@ -165,13 +169,15 @@ const DateRangeModal: React.FC<DateRangeModalProps> = ({
               <S.CancelButton
                 onClick={onClose}
                 whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}>
+                whileTap={{ scale: 0.98 }}
+              >
                 취소
               </S.CancelButton>
               <S.ApplyButton
                 onClick={handleApply}
                 whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}>
+                whileTap={{ scale: 0.98 }}
+              >
                 <FaCheck /> 적용
               </S.ApplyButton>
             </S.Actions>

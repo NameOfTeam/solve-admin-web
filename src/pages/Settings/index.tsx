@@ -171,7 +171,8 @@ const Settings: React.FC = () => {
                     <S.OptionLabel>{option.label}</S.OptionLabel>
                     <S.Toggle
                       isActive={settings[option.id]}
-                      onClick={() => handleToggle(option.id)}>
+                      onClick={() => handleToggle(option.id)}
+                    >
                       <S.ToggleHandle
                         as={motion.div}
                         animate={{ x: settings[option.id] ? 22 : 2 }}

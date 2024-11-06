@@ -55,7 +55,8 @@ const Home = () => {
           <S.MenuItem
             key={item.path}
             onClick={() => navigate(item.path)}
-            style={{ background: item.bgColor }}>
+            style={{ background: item.bgColor }}
+          >
             <S.MenuIcon>{item.icon}</S.MenuIcon>
             <S.MenuContent>
               <S.MenuTitle>{item.title}</S.MenuTitle>

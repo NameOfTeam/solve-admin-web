@@ -73,11 +73,13 @@ const ProblemList = () => {
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}>
+          transition={{ duration: 0.5 }}
+        >
           <S.LoadingContainer>
             <motion.div
               animate={{ rotate: 360 }}
-              transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}>
+              transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+            >
               <FaSpinner size={40} />
             </motion.div>
             <S.LoadingText>문제 목록을 불러오는 중입니다...</S.LoadingText>
@@ -93,7 +95,8 @@ const ProblemList = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}>
+          transition={{ duration: 0.5 }}
+        >
           <S.ErrorMessage>
             <FaLightbulb size={24} />
             문제 목록을 불러오는데 실패했습니다.
@@ -110,7 +113,8 @@ const ProblemList = () => {
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}>
+            transition={{ duration: 0.5 }}
+          >
             <S.Title>
               문제 <span>관리</span>
             </S.Title>
@@ -121,7 +125,8 @@ const ProblemList = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
             whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}>
+            whileTap={{ scale: 0.95 }}
+          >
             <S.CreateButton to="/problems/new">
               <FaPlus /> 새 문제 생성
             </S.CreateButton>
@@ -138,7 +143,8 @@ const ProblemList = () => {
                   whileHover={{
                     y: -8,
                     transition: { duration: 0.2 },
-                  }}>
+                  }}
+                >
                   <S.ProblemCard to={`/problems/${problem.id}`}>
                     <S.ProblemTitle>{problem.title}</S.ProblemTitle>
                     <S.ProblemContent>{problem.content}</S.ProblemContent>
@@ -175,7 +181,8 @@ const ProblemList = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}>
+              exit={{ opacity: 0, y: 20 }}
+            >
               <S.LoadingSpinner>
                 <FaSpinner /> 추가 문제를 불러오는 중...
               </S.LoadingSpinner>

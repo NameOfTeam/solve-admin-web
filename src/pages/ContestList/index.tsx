@@ -112,7 +112,8 @@ const ContestList = () => {
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}>
+            transition={{ duration: 0.6 }}
+          >
             <S.Title>
               대회 <span>관리</span>
             </S.Title>
@@ -121,11 +122,13 @@ const ContestList = () => {
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}>
+            transition={{ duration: 0.6 }}
+          >
             <S.CreateButton
               onClick={() => navigate('/contests/new')}
               whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}>
+              whileTap={{ scale: 0.95 }}
+            >
               <FaPlus /> 새 대회 생성
             </S.CreateButton>
           </motion.div>
@@ -134,7 +137,8 @@ const ContestList = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}>
+          transition={{ delay: 0.2 }}
+        >
           <S.SearchBar>
             <S.SearchInputWrapper>
               <FaSearch className="search-icon" />
@@ -149,7 +153,8 @@ const ContestList = () => {
                   <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.8 }}>
+                    exit={{ opacity: 0, scale: 0.8 }}
+                  >
                     <S.SearchSpinner>
                       <FaSpinner />
                     </S.SearchSpinner>
@@ -164,11 +169,13 @@ const ContestList = () => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}>
+            transition={{ duration: 0.5 }}
+          >
             <S.LoadingSpinner>
               <motion.div
                 animate={{ rotate: 360 }}
-                transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}>
+                transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+              >
                 <FaSpinner />
               </motion.div>
               <span>대회 목록을 불러오는 중...</span>
@@ -178,7 +185,8 @@ const ContestList = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}>
+            transition={{ duration: 0.5 }}
+          >
             <S.ErrorMessage>
               <strong>오류가 발생했습니다</strong>
               대회 목록을 불러오는데 실패했습니다.
@@ -193,10 +201,12 @@ const ContestList = () => {
                     key={contest.id}
                     variants={itemVariants}
                     layout
-                    whileHover={{ y: -8 }}>
+                    whileHover={{ y: -8 }}
+                  >
                     <S.ContestCard
                       onClick={() => navigate(`/contests/${contest.id}`)}
-                      status={getContestStatus(contest.startAt, contest.endAt)}>
+                      status={getContestStatus(contest.startAt, contest.endAt)}
+                    >
                       <S.ContestHeader>
                         <S.ContestTitle>{contest.title}</S.ContestTitle>
                         <motion.div whileHover={{ scale: 1.1 }}>
@@ -259,7 +269,8 @@ const ContestList = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}>
+              exit={{ opacity: 0, y: 20 }}
+            >
               <S.LoadingSpinner>
                 <FaSpinner />
                 <span>추가 대회를 불러오는 중...</span>

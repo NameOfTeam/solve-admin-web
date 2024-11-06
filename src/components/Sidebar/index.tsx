@@ -51,7 +51,8 @@ const Sidebar = () => {
           <S.MenuItem
             key={item.path}
             active={location.pathname === item.path}
-            onClick={() => navigate(item.path)}>
+            onClick={() => navigate(item.path)}
+          >
             <S.MenuIcon active={location.pathname === item.path}>{item.icon}</S.MenuIcon>
             <S.MenuTitle active={location.pathname === item.path}>{item.title}</S.MenuTitle>
           </S.MenuItem>

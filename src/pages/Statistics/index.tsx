@@ -130,7 +130,8 @@ const Statistics = () => {
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}>
+          transition={{ duration: 0.6 }}
+        >
           <S.Title>
             통계 <span>현황</span>
           </S.Title>
@@ -138,11 +139,13 @@ const Statistics = () => {
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}>
+          transition={{ duration: 0.6 }}
+        >
           <S.DateSelector
             onClick={() => setIsDateModalOpen(true)}
             whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}>
+            whileTap={{ scale: 0.98 }}
+          >
             <FaCalendarAlt />
             {formatDateRange()}
           </S.DateSelector>
@@ -232,11 +235,13 @@ const Statistics = () => {
                           textAnchor={x > cx ? 'start' : 'end'}
                           dominantBaseline="central"
                           fill="#64748b"
-                          fontSize="12">
+                          fontSize="12"
+                        >
                           {name} ({(percent * 100).toFixed(0)}%)
                         </text>
                       );
-                    }}>
+                    }}
+                  >
                     {problemCategories.map((_, index) => (
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}

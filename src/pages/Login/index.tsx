@@ -48,14 +48,16 @@ const Login: React.FC = () => {
         onSubmit={handleSubmit}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}>
+        transition={{ duration: 0.5 }}
+      >
         <S.Box>
           <motion.div
             layout
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="header-container">
+            className="header-container"
+          >
             <S.LogoContainer>
               <motion.div
                 initial={{ rotate: -180, scale: 0 }}
@@ -64,7 +66,8 @@ const Login: React.FC = () => {
                   type: 'spring',
                   stiffness: 260,
                   damping: 20,
-                }}>
+                }}
+              >
                 <FaShieldAlt size={40} />
               </motion.div>
             </S.LogoContainer>
@@ -80,7 +83,8 @@ const Login: React.FC = () => {
                   animate={{
                     x: focusedInput === 'username' || request.username ? -4 : 0,
                     color: focusedInput === 'username' ? '#3b82f6' : '#94a3b8',
-                  }}>
+                  }}
+                >
                   <FaUser />
                 </motion.span>
                 Username
@@ -115,7 +119,8 @@ const Login: React.FC = () => {
                   animate={{
                     x: focusedInput === 'password' || request.password ? -4 : 0,
                     color: focusedInput === 'password' ? '#3b82f6' : '#94a3b8',
-                  }}>
+                  }}
+                >
                   <FaLock />
                 </motion.span>
                 Password
@@ -147,18 +152,21 @@ const Login: React.FC = () => {
           <motion.div
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            style={{ width: '100%' }}>
+            style={{ width: '100%' }}
+          >
             <S.Button
               type="submit"
               disabled={isPending || !request.username || !request.password}
-              aria-label={isPending ? 'Loading...' : 'Login'}>
+              aria-label={isPending ? 'Loading...' : 'Login'}
+            >
               <AnimatePresence mode="wait">
                 {isPending ? (
                   <motion.div
                     key="loading"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}>
+                    exit={{ opacity: 0 }}
+                  >
                     <S.LoadingSpinner>
                       <FaSpinner /> Loading...
                     </S.LoadingSpinner>
@@ -168,7 +176,8 @@ const Login: React.FC = () => {
                     key="text"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}>
+                    exit={{ opacity: 0 }}
+                  >
                     Login
                   </motion.span>
                 )}
@@ -179,7 +188,8 @@ const Login: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}>
+            transition={{ delay: 0.2 }}
+          >
             <S.SecurityNotice>
               <FaShieldAlt size={14} />
               관리자 전용 로그인입니다
