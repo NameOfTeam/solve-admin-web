@@ -1,12 +1,14 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaUser, FaLock, FaSpinner, FaShieldAlt } from 'react-icons/fa';
+import { FaUser, FaLock, FaSpinner, FaShieldAlt, FaUserPlus } from 'react-icons/fa';
 import useLogin from '../../hooks/auth/useLogin';
+import { useNavigate } from 'react-router-dom';
 import * as S from './style';
 
 type InputType = 'username' | 'password' | null;
 
 const Login: React.FC = () => {
+  const navigate = useNavigate();
   const { request, handleChange, isPending, mutate } = useLogin();
   const [focusedInput, setFocusedInput] = React.useState<InputType>(null);
 
@@ -21,182 +23,167 @@ const Login: React.FC = () => {
     mutate();
   };
 
-  const handleInputFocus = (inputName: InputType): void => {
-    setFocusedInput(inputName);
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    handleChange(e);
+  const handleSignupClick = () => {
+    navigate('/signup');
   };
 
   return (
     <S.Container>
-      <motion.div
-        className="background-gradient"
-        animate={{
-          scale: [1, 1.1, 1],
-          rotate: [0, 5, 0],
-        }}
-        transition={{
-          duration: 15,
-          repeat: Infinity,
-          ease: 'linear',
-        }}
-      />
+      <S.LeftPanel>
+        <motion.div
+          className="content"
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <S.LogoContainer>
+            <motion.div
+              animate={{
+                rotateY: [0, 360],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+            >
+              <FaShieldAlt size={40} />
+            </motion.div>
+          </S.LogoContainer>
+          <S.WelcomeText>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              Solve Admin
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+            >
+              관리자 전용 시스템에 오신 것을 환영합니다
+            </motion.p>
+          </S.WelcomeText>
+        </motion.div>
+      </S.LeftPanel>
 
-      <motion.form
-        onSubmit={handleSubmit}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <S.Box>
-          <motion.div
-            layout
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="header-container"
-          >
-            <S.LogoContainer>
-              <motion.div
-                initial={{ rotate: -180, scale: 0 }}
-                animate={{ rotate: 0, scale: 1 }}
-                transition={{
-                  type: 'spring',
-                  stiffness: 260,
-                  damping: 20,
-                }}
-              >
-                <FaShieldAlt size={40} />
-              </motion.div>
-            </S.LogoContainer>
-            <S.Title>SOLVE ADMIN</S.Title>
-            <S.Subtitle>관리자 로그인</S.Subtitle>
-          </motion.div>
+      <S.RightPanel>
+        <motion.form
+          onSubmit={handleSubmit}
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <S.FormTitle>로그인</S.FormTitle>
 
           <S.FormContainer>
-            <S.FormGroup>
-              <S.Label htmlFor="username">
+            <S.InputGroup>
+              <S.Label>
                 <motion.span
-                  initial={{ x: 0 }}
                   animate={{
-                    x: focusedInput === 'username' || request.username ? -4 : 0,
                     color: focusedInput === 'username' ? '#3b82f6' : '#94a3b8',
                   }}
                 >
                   <FaUser />
                 </motion.span>
-                Username
+                아이디
               </S.Label>
-              <S.InputWrapper>
+              <motion.div whileTap={{ scale: 0.995 }}>
                 <S.Input
-                  id="username"
                   name="username"
-                  type="text"
                   value={request.username}
-                  onChange={handleInputChange}
+                  onChange={handleChange}
                   onKeyDown={handleKeyDown}
-                  onFocus={() => handleInputFocus('username')}
-                  onBlur={() => handleInputFocus(null)}
+                  onFocus={() => setFocusedInput('username')}
+                  onBlur={() => setFocusedInput(null)}
                   autoComplete="username"
-                  aria-label="Username"
+                  placeholder="아이디를 입력하세요"
                 />
-                <S.InputBackground
-                  initial={false}
-                  animate={{
-                    opacity: focusedInput === 'username' || request.username ? 1 : 0,
-                    scale: focusedInput === 'username' || request.username ? 1 : 0.98,
-                  }}
-                />
-              </S.InputWrapper>
-            </S.FormGroup>
+              </motion.div>
+            </S.InputGroup>
 
-            <S.FormGroup>
-              <S.Label htmlFor="password">
+            <S.InputGroup>
+              <S.Label>
                 <motion.span
-                  initial={{ x: 0 }}
                   animate={{
-                    x: focusedInput === 'password' || request.password ? -4 : 0,
                     color: focusedInput === 'password' ? '#3b82f6' : '#94a3b8',
                   }}
                 >
                   <FaLock />
                 </motion.span>
-                Password
+                비밀번호
               </S.Label>
-              <S.InputWrapper>
+              <motion.div whileTap={{ scale: 0.995 }}>
                 <S.Input
-                  id="password"
-                  name="password"
                   type="password"
+                  name="password"
                   value={request.password}
-                  onChange={handleInputChange}
+                  onChange={handleChange}
                   onKeyDown={handleKeyDown}
-                  onFocus={() => handleInputFocus('password')}
-                  onBlur={() => handleInputFocus(null)}
+                  onFocus={() => setFocusedInput('password')}
+                  onBlur={() => setFocusedInput(null)}
                   autoComplete="current-password"
-                  aria-label="Password"
+                  placeholder="비밀번호를 입력하세요"
                 />
-                <S.InputBackground
-                  initial={false}
-                  animate={{
-                    opacity: focusedInput === 'password' || request.password ? 1 : 0,
-                    scale: focusedInput === 'password' || request.password ? 1 : 0.98,
-                  }}
-                />
-              </S.InputWrapper>
-            </S.FormGroup>
+              </motion.div>
+            </S.InputGroup>
+
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <S.LoginButton
+                type="submit"
+                disabled={isPending || !request.username || !request.password}
+              >
+                <AnimatePresence mode="wait">
+                  {isPending ? (
+                    <motion.div
+                      key="loading"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                    >
+                      <FaSpinner className="spinner" />
+                      <span>로그인 중...</span>
+                    </motion.div>
+                  ) : (
+                    <motion.span
+                      key="login"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                    >
+                      로그인
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </S.LoginButton>
+            </motion.div>
+
+            <S.Divider>
+              <span>또는</span>
+            </S.Divider>
+
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <S.SignupButton onClick={handleSignupClick} type="button">
+                <FaUserPlus />
+                <span>회원가입</span>
+              </S.SignupButton>
+            </motion.div>
           </S.FormContainer>
 
           <motion.div
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            style={{ width: '100%' }}
-          >
-            <S.Button
-              type="submit"
-              disabled={isPending || !request.username || !request.password}
-              aria-label={isPending ? 'Loading...' : 'Login'}
-            >
-              <AnimatePresence mode="wait">
-                {isPending ? (
-                  <motion.div
-                    key="loading"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                  >
-                    <S.LoadingSpinner>
-                      <FaSpinner /> Loading...
-                    </S.LoadingSpinner>
-                  </motion.div>
-                ) : (
-                  <motion.span
-                    key="text"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                  >
-                    Login
-                  </motion.span>
-                )}
-              </AnimatePresence>
-            </S.Button>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.7 }}
           >
             <S.SecurityNotice>
-              <FaShieldAlt size={14} />
-              관리자 전용 로그인입니다
+              <FaShieldAlt />
+              <span>관리자 전용 시스템입니다</span>
             </S.SecurityNotice>
           </motion.div>
-        </S.Box>
-      </motion.form>
+        </motion.form>
+      </S.RightPanel>
     </S.Container>
   );
 };

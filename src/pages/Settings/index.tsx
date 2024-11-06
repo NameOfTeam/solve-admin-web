@@ -160,7 +160,8 @@ const Settings: React.FC = () => {
                     <S.OptionLabel>{option.label}</S.OptionLabel>
                     <S.Toggle
                       isActive={settings[option.id]}
-                      onClick={() => handleToggle(option.id)}>
+                      onClick={() => handleToggle(option.id)}
+                    >
                       <S.ToggleHandle
                         animate={{ x: settings[option.id] ? 22 : 2 }}
                         transition={{ type: 'spring', stiffness: 500, damping: 30 }}

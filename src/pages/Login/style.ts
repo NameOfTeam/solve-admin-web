@@ -1,219 +1,164 @@
 import styled from '@emotion/styled';
-import { motion } from 'framer-motion';
-
-interface InputProps {
-  hasError?: boolean;
-}
-
-interface ButtonProps {
-  disabled?: boolean;
-}
-
-interface LabelProps {
-  htmlFor: string;
-}
 
 export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
   min-height: 100vh;
   background: #f8fafc;
-  padding: 2rem;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+export const LeftPanel = styled.div`
+  background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
+  padding: 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   position: relative;
   overflow: hidden;
 
-  .background-gradient {
+  &::before {
+    content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 1000px;
-    height: 1000px;
-    background: conic-gradient(from 0deg, #6366f1, #3b82f6, #2563eb, #1d4ed8, #3b82f6, #6366f1);
-    border-radius: 50%;
-    filter: blur(100px);
-    opacity: 0.15;
-    z-index: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.1;
+  }
+
+  .content {
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (max-width: 1024px) {
+    padding: 2rem;
+    text-align: center;
+    align-items: center;
   }
 `;
 
-export const Box = styled.div`
-  background: rgba(255, 255, 255, 0.95);
-  padding: 3.5rem 4rem;
-  border-radius: 24px;
-  box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06),
-    0 20px 25px -5px rgba(0, 0, 0, 0.05);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-  width: 100%;
-  max-width: 480px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(20px);
-  position: relative;
-  z-index: 1;
-
-  @media (max-width: 640px) {
-    padding: 2.5rem 2rem;
-    gap: 1.5rem;
-  }
-`;
-
-export const LogoContainer = styled(motion.div)`
+export const LogoContainer = styled.div`
   width: 80px;
   height: 80px;
-  background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
   border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
+  margin-bottom: 2rem;
 `;
 
-export const Title = styled.h1`
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: #1e293b;
-  margin-bottom: 0.5rem;
-  letter-spacing: -0.02em;
-  text-align: center;
-  background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+export const WelcomeText = styled.div`
+  color: white;
 
-  @media (max-width: 640px) {
-    font-size: 2rem;
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0 0 1rem 0;
+  }
+
+  p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    line-height: 1.6;
+    margin: 0;
   }
 `;
 
-export const Subtitle = styled.p`
-  color: #64748b;
-  font-size: 1.1rem;
-  text-align: center;
-  margin-bottom: 1rem;
+export const RightPanel = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+
+  form {
+    width: 100%;
+    max-width: 420px;
+  }
+
+  @media (max-width: 1024px) {
+    padding: 2rem;
+  }
+`;
+
+export const FormTitle = styled.h2`
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 2rem 0;
 `;
 
 export const FormContainer = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 `;
 
-export const FormGroup = styled.div`
-  width: 100%;
-  position: relative;
+export const InputGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 `;
 
-export const Label = styled.label<LabelProps>`
+export const Label = styled.label`
   display: flex;
   align-items: center;
   gap: 0.5rem;
   color: #64748b;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 500;
-  margin-bottom: 0.5rem;
 
   span {
     display: flex;
     align-items: center;
   }
-
-  svg {
-    font-size: 1rem;
-  }
 `;
 
-export const InputWrapper = styled.div`
-  position: relative;
+export const Input = styled.input`
   width: 100%;
-`;
-
-export const InputBackground = styled(motion.div)`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
-  border-radius: 12px;
-  z-index: -1;
-`;
-
-export const Input = styled.input<InputProps>`
-  width: 100%;
-  height: 3.5rem;
+  height: 3.25rem;
   padding: 0 1.25rem;
-  font-size: 1rem;
-  color: #1e293b;
-  background: transparent;
-  border: 2px solid ${(props) => (props.hasError ? '#ef4444' : '#e2e8f0')};
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
   border-radius: 12px;
+  font-size: 0.95rem;
+  color: #1e293b;
   transition: all 0.2s ease;
 
   &:focus {
     outline: none;
-    border-color: ${(props) => (props.hasError ? '#ef4444' : '#3b82f6')};
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
   }
 
   &::placeholder {
     color: #94a3b8;
   }
-
-  @media (max-width: 640px) {
-    height: 3rem;
-    font-size: 0.95rem;
-  }
 `;
 
-export const Button = styled.button<ButtonProps>`
+export const LoginButton = styled.button`
   width: 100%;
-  height: 3.5rem;
+  height: 3.25rem;
   background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
   color: white;
   border: none;
   border-radius: 12px;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
 
-  &:disabled {
-    background: linear-gradient(135deg, #94a3b8 0%, #64748b 100%);
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-  }
-
-  @media (max-width: 640px) {
-    height: 3rem;
-    font-size: 1rem;
-  }
-`;
-
-export const LoadingSpinner = styled(motion.div)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-
-  svg {
+  .spinner {
     animation: spin 1s linear infinite;
   }
 
@@ -225,6 +170,18 @@ export const LoadingSpinner = styled(motion.div)`
       transform: rotate(360deg);
     }
   }
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  &:disabled {
+    background: linear-gradient(135deg, #94a3b8 0%, #64748b 100%);
+    cursor: not-allowed;
+  }
 `;
 
 export const SecurityNotice = styled.div`
@@ -232,15 +189,69 @@ export const SecurityNotice = styled.div`
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  color: #64748b;
-  font-size: 0.9rem;
-  margin-top: 0.5rem;
-  width: 100%;
   padding: 0.75rem;
   background: #f1f5f9;
-  border-radius: 8px;
+  border-radius: 10px;
+  color: #64748b;
+  font-size: 0.875rem;
 
   svg {
     color: #3b82f6;
+  }
+`;
+
+export const Divider = styled.div`
+  position: relative;
+  text-align: center;
+  margin: 1.5rem 0;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: calc(50% - 30px);
+    height: 1px;
+    background: #e2e8f0;
+  }
+
+  &::before {
+    left: 0;
+  }
+
+  &::after {
+    right: 0;
+  }
+
+  span {
+    background: #f8fafc;
+    padding: 0 1rem;
+    color: #64748b;
+    font-size: 0.875rem;
+  }
+`;
+
+export const SignupButton = styled.button`
+  width: 100%;
+  height: 3.25rem;
+  background: white;
+  color: #3b82f6;
+  border: 2px solid #3b82f6;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba(59, 130, 246, 0.05);
+  }
+
+  svg {
+    font-size: 1.1rem;
   }
 `;
