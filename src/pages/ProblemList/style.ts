@@ -32,6 +32,7 @@ export const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 3rem;
+  position: relative;
 `;
 
 export const Title = styled.h1`
@@ -39,6 +40,18 @@ export const Title = styled.h1`
   color: #1e293b;
   font-weight: 800;
   letter-spacing: -0.02em;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
+    border-radius: 2px;
+  }
 
   span {
     background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
@@ -65,9 +78,12 @@ export const CreateButton = styled(Link)`
   gap: 0.5rem;
   box-shadow: 0 2px 4px rgba(99, 102, 241, 0.1);
 
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 6px rgba(99, 102, 241, 0.2);
+  svg {
+    transition: transform 0.3s ease;
+  }
+
+  &:hover svg {
+    transform: rotate(90deg);
   }
 
   @media (max-width: 640px) {
@@ -92,17 +108,29 @@ export const ProblemCard = styled(Link)`
   border-radius: 16px;
   padding: 2rem;
   border: 1px solid #e2e8f0;
-  transition: all 0.3s ease;
   text-decoration: none;
   display: flex;
   flex-direction: column;
   gap: 1rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
 
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.15);
-    border-color: #cbd5e0;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover::before {
+    transform: scaleX(1);
   }
 
   @media (max-width: 640px) {
@@ -152,10 +180,30 @@ export const MetaItem = styled.div`
   gap: 0.5rem;
   color: #64748b;
   font-size: 0.9rem;
+  padding: 0.5rem 0.75rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  transition: all 0.2s ease;
 
   svg {
-    color: #94a3b8;
+    color: #6366f1;
   }
+`;
+
+export const LoadingContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 4rem;
+  color: #6366f1;
+`;
+
+export const LoadingText = styled.div`
+  color: #64748b;
+  font-size: 1.1rem;
+  font-weight: 500;
 `;
 
 export const LoadingSpinner = styled.div`
@@ -182,6 +230,10 @@ export const LoadingSpinner = styled.div`
 `;
 
 export const ErrorMessage = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
   text-align: center;
   padding: 2rem;
   color: #dc2626;
@@ -189,4 +241,9 @@ export const ErrorMessage = styled.div`
   border-radius: 12px;
   border: 1px solid #fecaca;
   margin-top: 2rem;
+  font-weight: 500;
+
+  svg {
+    color: #ef4444;
+  }
 `;

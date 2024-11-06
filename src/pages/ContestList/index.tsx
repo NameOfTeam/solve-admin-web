@@ -2,37 +2,22 @@ import { useState, useEffect } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 import { useNavigate } from 'react-router-dom';
-import { FaSpinner, FaUser, FaUsers, FaClock, FaEye, FaEyeSlash, FaPlus } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  FaSpinner,
+  FaUser,
+  FaUsers,
+  FaClock,
+  FaEye,
+  FaEyeSlash,
+  FaPlus,
+  FaSearch,
+} from 'react-icons/fa';
 import * as S from './style';
 import adminAxios from '../../libs/adminAxios';
 import { BaseResponse } from '../../types/common/base';
 import { PageResponse } from '../../types/common/page';
-
-interface ContestResponse {
-  id: number;
-  title: string;
-  description: string;
-  startAt: string;
-  endAt: string;
-  owner: {
-    id: string;
-    username: string;
-  };
-  participants: Array<{
-    id: string;
-    username: string;
-  }>;
-  operators: Array<{
-    id: string;
-    username: string;
-  }>;
-  problems: Array<{
-    title: string;
-  }>;
-  visibility: 'PUBLIC' | 'PRIVATE';
-  createdAt: string;
-  updatedAt: string;
-}
+import { ContestResponse } from '../../types/contest/contest';
 
 const ContestList = () => {
   const navigate = useNavigate();
@@ -44,7 +29,6 @@ const ContestList = () => {
     const timer = setTimeout(() => {
       setDebouncedSearch(searchTerm);
     }, 500);
-
     return () => clearTimeout(timer);
   }, [searchTerm]);
 
@@ -52,19 +36,11 @@ const ContestList = () => {
     useInfiniteQuery({
       queryKey: ['contests', debouncedSearch],
       queryFn: async ({ pageParam = 0 }) => {
-        const params: {
-          page: number;
-          size: number;
-          search?: string;
-        } = {
+        const params = {
           page: pageParam,
           size: 12,
+          ...(debouncedSearch && { search: debouncedSearch }),
         };
-
-        if (debouncedSearch) {
-          params.search = debouncedSearch;
-        }
-
         const { data } = await adminAxios.get<BaseResponse<PageResponse<ContestResponse>>>(
           '/contests',
           { params },
@@ -105,108 +81,194 @@ const ContestList = () => {
     return 'ongoing';
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        when: 'beforeChildren',
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: 'spring',
+        stiffness: 260,
+        damping: 20,
+      },
+    },
+  };
+
   return (
-    <S.Container>
-      <S.Header>
-        <S.Title>
-          대회 <span>관리</span>
-        </S.Title>
-        <S.CreateButton onClick={() => navigate('/contests/new')}>
-          <FaPlus /> 새 대회 생성
-        </S.CreateButton>
-      </S.Header>
+    <motion.div variants={containerVariants} initial="hidden" animate="visible">
+      <S.Container>
+        <S.Header>
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}>
+            <S.Title>
+              대회 <span>관리</span>
+            </S.Title>
+          </motion.div>
 
-      <S.SearchBar>
-        <S.SearchInputWrapper>
-          <S.SearchInput
-            type="text"
-            placeholder="대회 검색..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          {isFetching && searchTerm === debouncedSearch && (
-            <S.SearchSpinner>
-              <FaSpinner />
-            </S.SearchSpinner>
-          )}
-        </S.SearchInputWrapper>
-      </S.SearchBar>
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}>
+            <S.CreateButton
+              onClick={() => navigate('/contests/new')}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}>
+              <FaPlus /> 새 대회 생성
+            </S.CreateButton>
+          </motion.div>
+        </S.Header>
 
-      {status === 'pending' ? (
-        <S.LoadingSpinner>
-          <FaSpinner />
-          <span>대회 목록을 불러오는 중...</span>
-        </S.LoadingSpinner>
-      ) : status === 'error' ? (
-        <S.ErrorMessage>
-          <strong>오류가 발생했습니다</strong>
-          대회 목록을 불러오는데 실패했습니다.
-        </S.ErrorMessage>
-      ) : (
-        <S.ContestGrid>
-          {data.pages.map((page) =>
-            page.content.map((contest) => (
-              <S.ContestCard
-                key={contest.id}
-                onClick={() => navigate(`/contests/${contest.id}`)}
-                status={getContestStatus(contest.startAt, contest.endAt)}
-              >
-                <S.ContestHeader>
-                  <S.ContestTitle>{contest.title}</S.ContestTitle>
-                  <S.VisibilityBadge visibility={contest.visibility}>
-                    {contest.visibility === 'PUBLIC' ? (
-                      <>
-                        <FaEye /> 공개
-                      </>
-                    ) : (
-                      <>
-                        <FaEyeSlash /> 비공개
-                      </>
-                    )}
-                  </S.VisibilityBadge>
-                </S.ContestHeader>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}>
+          <S.SearchBar>
+            <S.SearchInputWrapper>
+              <FaSearch className="search-icon" />
+              <S.SearchInput
+                type="text"
+                placeholder="대회 검색..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <AnimatePresence>
+                {isFetching && searchTerm === debouncedSearch && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}>
+                    <S.SearchSpinner>
+                      <FaSpinner />
+                    </S.SearchSpinner>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </S.SearchInputWrapper>
+          </S.SearchBar>
+        </motion.div>
 
-                <S.ContestDescription>{contest.description}</S.ContestDescription>
+        {status === 'pending' ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}>
+            <S.LoadingSpinner>
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}>
+                <FaSpinner />
+              </motion.div>
+              <span>대회 목록을 불러오는 중...</span>
+            </S.LoadingSpinner>
+          </motion.div>
+        ) : status === 'error' ? (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}>
+            <S.ErrorMessage>
+              <strong>오류가 발생했습니다</strong>
+              대회 목록을 불러오는데 실패했습니다.
+            </S.ErrorMessage>
+          </motion.div>
+        ) : (
+          <S.ContestGrid>
+            <AnimatePresence>
+              {data.pages.map((page) =>
+                page.content.map((contest) => (
+                  <motion.div
+                    key={contest.id}
+                    variants={itemVariants}
+                    layout
+                    whileHover={{ y: -8 }}>
+                    <S.ContestCard
+                      onClick={() => navigate(`/contests/${contest.id}`)}
+                      status={getContestStatus(contest.startAt, contest.endAt)}>
+                      <S.ContestHeader>
+                        <S.ContestTitle>{contest.title}</S.ContestTitle>
+                        <motion.div whileHover={{ scale: 1.1 }}>
+                          <S.VisibilityBadge visibility={contest.visibility}>
+                            {contest.visibility === 'PUBLIC' ? (
+                              <motion.div whileHover={{ rotate: [0, -10, 10, 0] }}>
+                                <FaEye /> 공개
+                              </motion.div>
+                            ) : (
+                              <motion.div whileHover={{ rotate: [0, -10, 10, 0] }}>
+                                <FaEyeSlash /> 비공개
+                              </motion.div>
+                            )}
+                          </S.VisibilityBadge>
+                        </motion.div>
+                      </S.ContestHeader>
 
-                <S.ContestInfo>
-                  <S.InfoItem>
-                    <FaClock />
-                    <div>
-                      <div>시작: {formatDate(contest.startAt)}</div>
-                      <div>종료: {formatDate(contest.endAt)}</div>
-                    </div>
-                  </S.InfoItem>
+                      <S.ContestDescription>{contest.description}</S.ContestDescription>
 
-                  <S.InfoItem>
-                    <FaUsers />
-                    <span>참가자 {contest.participants.length}명</span>
-                  </S.InfoItem>
+                      <S.ContestInfo>
+                        <motion.div whileHover={{ x: 5 }}>
+                          <S.InfoItem>
+                            <FaClock />
+                            <div>
+                              <div>시작: {formatDate(contest.startAt)}</div>
+                              <div>종료: {formatDate(contest.endAt)}</div>
+                            </div>
+                          </S.InfoItem>
+                        </motion.div>
 
-                  <S.InfoItem>
-                    <FaUser />
-                    <span>주최자: {contest.owner.username}</span>
-                  </S.InfoItem>
-                </S.ContestInfo>
+                        <motion.div whileHover={{ x: 5 }}>
+                          <S.InfoItem>
+                            <FaUsers />
+                            <span>참가자 {contest.participants.length}명</span>
+                          </S.InfoItem>
+                        </motion.div>
 
-                <S.ContestMeta>
-                  <S.ProblemCount>문제 {contest.problems.length}개</S.ProblemCount>
-                  <S.OperatorCount>운영진 {contest.operators.length}명</S.OperatorCount>
-                </S.ContestMeta>
-              </S.ContestCard>
-            )),
-          )}
-        </S.ContestGrid>
-      )}
+                        <motion.div whileHover={{ x: 5 }}>
+                          <S.InfoItem>
+                            <FaUser />
+                            <span>주최자: {contest.owner.username}</span>
+                          </S.InfoItem>
+                        </motion.div>
+                      </S.ContestInfo>
 
-      <div ref={ref}>
-        {isFetchingNextPage && (
-          <S.LoadingSpinner>
-            <FaSpinner />
-            <span>추가 대회를 불러오는 중...</span>
-          </S.LoadingSpinner>
+                      <S.ContestMeta>
+                        <S.ProblemCount>문제 {contest.problems.length}개</S.ProblemCount>
+                        <S.OperatorCount>운영진 {contest.operators.length}명</S.OperatorCount>
+                      </S.ContestMeta>
+                    </S.ContestCard>
+                  </motion.div>
+                )),
+              )}
+            </AnimatePresence>
+          </S.ContestGrid>
         )}
-      </div>
-    </S.Container>
+
+        <div ref={ref}>
+          {isFetchingNextPage && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}>
+              <S.LoadingSpinner>
+                <FaSpinner />
+                <span>추가 대회를 불러오는 중...</span>
+              </S.LoadingSpinner>
+            </motion.div>
+          )}
+        </div>
+      </S.Container>
+    </motion.div>
   );
 };
 

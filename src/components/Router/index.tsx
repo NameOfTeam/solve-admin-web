@@ -13,6 +13,9 @@ import ProblemIdea from '../../pages/ProblemIdea';
 import Problem from '../../pages/Problem';
 import Contest from '../../pages/Contest';
 import Signup from '../../pages/SignUp';
+import Settings from '../../pages/Settings';
+import NotFound from '../../pages/NotFound';
+import Statistics from '../../pages/Statistics';
 
 const Router = () => {
   return (
@@ -32,6 +35,10 @@ const Router = () => {
           <Route path="/contests" element={<ContestList />} />
           <Route path="/contests/:contestId" element={<Contest />} />
           <Route path="/contests/new" element={<NewContest />} />
+
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/statistics" element={<Statistics />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
 
         <Route path="/login" element={<Login />} />

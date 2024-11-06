@@ -13,6 +13,7 @@ const useCreateContest = () => {
     operatorIds: [],
     participantIds: [],
     problemIds: [],
+    visibility: 'PUBLIC',
   });
 
   const createContest = async () => {

@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaCode, FaTrophy, FaUsers, FaChartLine, FaCog } from 'react-icons/fa';
 import * as S from './style';
 
-const AdminHome = () => {
+const Home = () => {
   const navigate = useNavigate();
 
   const menuItems = [
@@ -55,8 +55,7 @@ const AdminHome = () => {
           <S.MenuItem
             key={item.path}
             onClick={() => navigate(item.path)}
-            style={{ background: item.bgColor }}
-          >
+            style={{ background: item.bgColor }}>
             <S.MenuIcon>{item.icon}</S.MenuIcon>
             <S.MenuContent>
               <S.MenuTitle>{item.title}</S.MenuTitle>
@@ -69,4 +68,4 @@ const AdminHome = () => {
   );
 };
 
-export default AdminHome;
+export default Home;
