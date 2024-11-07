@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { FaPen, FaSpinner, FaExclamationCircle } from 'react-icons/fa';
+import { FaExclamationCircle, FaPen, FaSpinner } from 'react-icons/fa';
 import customAxios from '../../libs/customAxios';
 import * as S from './style';
 
@@ -56,7 +56,7 @@ const NewProblemIdea = () => {
     return !newErrors.title && !newErrors.content;
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setForm((prev) => ({
       ...prev,
@@ -71,7 +71,7 @@ const NewProblemIdea = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
       mutation.mutate(form);

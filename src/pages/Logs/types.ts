@@ -73,6 +73,7 @@ export interface StatCard {
 
 export interface ChartDataPoint {
   hour: string;
+
   [key: string]: string | number;
 }
 

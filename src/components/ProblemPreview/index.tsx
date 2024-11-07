@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import * as S from './style';
 import { ProblemResponse } from '../../types/problem/problem';

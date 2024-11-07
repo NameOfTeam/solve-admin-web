@@ -1,16 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import {
+  FaChevronRight,
+  FaEnvelope,
+  FaFilter,
+  FaSearch,
   FaSpinner,
   FaUser,
   FaUserShield,
-  FaSearch,
-  FaFilter,
-  FaEnvelope,
-  FaChevronRight,
 } from 'react-icons/fa';
 import * as S from './style';
 import adminAxios from '../../libs/adminAxios';
@@ -18,7 +18,7 @@ import { BaseResponse } from '../../types/common/base';
 import { PageResponse } from '../../types/common/page';
 import { UserResponse } from '../../types/user/user';
 
-const UserList = () => {
+const Users = () => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
@@ -240,4 +240,4 @@ const UserList = () => {
   );
 };
 
-export default UserList;
+export default Users;

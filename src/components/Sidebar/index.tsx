@@ -1,17 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import {
-  FaHome,
+  FaBars,
+  FaBook,
+  FaBrain,
+  FaChartLine,
   FaCode,
+  FaCog,
+  FaHome,
+  FaTimes,
   FaTrophy,
   FaUsers,
-  FaChartLine,
-  FaCog,
-  FaBrain,
-  FaBars,
-  FaTimes,
-  FaBook,
 } from 'react-icons/fa';
 import * as S from './style';
 

@@ -132,7 +132,6 @@ export const ActionButton = styled.button<ActionButtonProps>`
       background: #f8fafc;
     }
   `}
-
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;

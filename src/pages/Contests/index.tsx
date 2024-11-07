@@ -1,17 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 import { useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import {
-  FaSpinner,
-  FaUser,
-  FaUsers,
   FaClock,
   FaEye,
   FaEyeSlash,
   FaPlus,
   FaSearch,
+  FaSpinner,
+  FaUser,
+  FaUsers,
 } from 'react-icons/fa';
 import * as S from './style';
 import adminAxios from '../../libs/adminAxios';
@@ -19,7 +19,7 @@ import { BaseResponse } from '../../types/common/base';
 import { PageResponse } from '../../types/common/page';
 import { ContestResponse } from '../../types/contest/contest';
 
-const ContestList = () => {
+const Contests = () => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
@@ -283,4 +283,4 @@ const ContestList = () => {
   );
 };
 
-export default ContestList;
+export default Contests;

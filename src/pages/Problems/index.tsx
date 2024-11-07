@@ -1,15 +1,15 @@
 import React from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FaUser, FaClock, FaMemory, FaSpinner, FaPlus, FaLightbulb } from 'react-icons/fa';
+import { AnimatePresence, motion } from 'framer-motion';
+import { FaClock, FaLightbulb, FaMemory, FaPlus, FaSpinner, FaUser } from 'react-icons/fa';
 import * as S from './style';
 import { BaseResponse } from '../../types/common/base';
 import { PageResponse } from '../../types/common/page';
 import { ProblemResponse } from '../../types/problem/problem';
 import adminAxios from '../../libs/adminAxios';
 
-const ProblemList = () => {
+const Problems = () => {
   const { ref, inView } = useInView();
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useInfiniteQuery({
@@ -194,4 +194,4 @@ const ProblemList = () => {
   );
 };
 
-export default ProblemList;
+export default Problems;

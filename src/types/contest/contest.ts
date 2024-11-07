@@ -21,17 +21,22 @@ export enum ContestState {
 }
 
 export interface ContestOperatorResponse {
+  id: string;
   username: string;
 }
 
 export interface ContestOwnerResponse {
+  id: string;
   username: string;
 }
+
 export interface ContestParticipantResponse {
+  id: string;
   username: string;
 }
 
 export interface ContestProblemResponse {
+  id: number;
   title: string;
 }
 

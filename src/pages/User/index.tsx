@@ -1,33 +1,33 @@
 import { useMemo } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import {
   FaArrowLeft,
-  FaEdit,
-  FaUser,
-  FaEnvelope,
-  FaUserShield,
-  FaSpinner,
-  FaFire,
-  FaTrophy,
   FaCalendarAlt,
-  FaGithub,
   FaDiscord,
-  FaTwitter,
+  FaEdit,
+  FaEnvelope,
+  FaFacebook,
+  FaFire,
+  FaGithub,
+  FaInfoCircle,
   FaInstagram,
   FaLinkedin,
-  FaTwitch,
-  FaYoutube,
-  FaSteam,
-  FaSpotify,
-  FaXbox,
-  FaFacebook,
-  FaReddit,
   FaPaypal,
+  FaReddit,
+  FaSpinner,
+  FaSpotify,
+  FaSteam,
   FaTiktok,
-  FaInfoCircle,
+  FaTrophy,
+  FaTwitch,
+  FaTwitter,
+  FaUser,
+  FaUserShield,
+  FaXbox,
+  FaYoutube,
 } from 'react-icons/fa';
-import { SiEbay, SiBattledotnet, SiLeagueoflegends } from 'react-icons/si';
+import { SiBattledotnet, SiEbay, SiLeagueoflegends } from 'react-icons/si';
 import adminAxios from '../../libs/adminAxios';
 import * as S from './style';
 import { UserConnection, UserResponse } from '../../types/user/user';

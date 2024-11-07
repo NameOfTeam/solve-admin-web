@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 import * as S from './style';
@@ -11,7 +11,7 @@ import { BaseResponse } from '../../types/common/base';
 import { PageResponse } from '../../types/common/page';
 import { WorkbookResponse } from '../../types/workbook';
 
-const WorkbookList = () => {
+const Workbooks = () => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const debouncedSearch = useDebounce(searchTerm, 500);
@@ -154,4 +154,4 @@ const WorkbookList = () => {
   );
 };
 
-export default WorkbookList;
+export default Workbooks;

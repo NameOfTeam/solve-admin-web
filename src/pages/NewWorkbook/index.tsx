@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { useMutation, useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
 import { useDebounce } from '../../hooks/useDebounce';
 import * as S from './style';
 import DraggableProblem from '../../components/DraggableProblem';
@@ -29,7 +29,6 @@ const NewWorkbook = () => {
 
   const [selectedProblems, setSelectedProblems] = useState<ProblemResponse[]>([]);
 
-  // 문제 목록 조회
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useInfiniteQuery({
     queryKey: ['problems', debouncedSearch],
     queryFn: async ({ pageParam = 0 }) => {
@@ -52,7 +51,6 @@ const NewWorkbook = () => {
         : undefined,
   });
 
-  // 문제집 생성
   const mutation = useMutation({
     mutationFn: async () => {
       const { data } = await adminAxios.post('/workbooks', {
@@ -70,7 +68,6 @@ const NewWorkbook = () => {
     },
   });
 
-  // 무한 스크롤
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
       fetchNextPage();

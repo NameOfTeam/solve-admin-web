@@ -1,17 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
 import {
+  FaCalendarAlt,
+  FaCode,
   FaEye,
   FaEyeSlash,
-  FaUsers,
-  FaCode,
-  FaTimes,
-  FaSpinner,
-  FaCalendarAlt,
   FaInfoCircle,
+  FaSpinner,
+  FaTimes,
+  FaUsers,
 } from 'react-icons/fa';
 import * as S from './style';
 import adminAxios from '../../libs/adminAxios';

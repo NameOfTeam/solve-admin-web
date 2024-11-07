@@ -2,20 +2,20 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
   FaBell,
-  FaUserShield,
-  FaServer,
-  FaKey,
-  FaSave,
-  FaUndo,
-  FaEnvelope,
-  FaSlack,
-  FaLock,
-  FaShieldAlt,
-  FaDatabase,
-  FaCog,
   FaBug,
   FaCode,
+  FaCog,
+  FaDatabase,
+  FaEnvelope,
   FaHistory,
+  FaKey,
+  FaLock,
+  FaSave,
+  FaServer,
+  FaShieldAlt,
+  FaSlack,
+  FaUndo,
+  FaUserShield,
 } from 'react-icons/fa';
 import * as S from './style';
 

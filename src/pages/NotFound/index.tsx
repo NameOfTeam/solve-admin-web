@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaHome, FaExclamationTriangle } from 'react-icons/fa';
+import { FaExclamationTriangle, FaHome } from 'react-icons/fa';
 import * as S from './style';
 
 const NotFound = () => {

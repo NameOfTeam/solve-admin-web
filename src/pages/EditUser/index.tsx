@@ -1,32 +1,32 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   FaArrowLeft,
-  FaSave,
-  FaSpinner,
-  FaLock,
-  FaUserShield,
   FaCamera,
-  FaTrash,
-  FaPlus,
-  FaGithub,
   FaDiscord,
-  FaTwitter,
+  FaFacebook,
+  FaGithub,
+  FaInfoCircle,
   FaInstagram,
   FaLinkedin,
-  FaTwitch,
-  FaYoutube,
-  FaSteam,
-  FaSpotify,
-  FaXbox,
-  FaFacebook,
-  FaReddit,
-  FaPaypal,
-  FaTiktok,
-  FaInfoCircle,
-  FaQuoteLeft,
+  FaLock,
   FaMarkdown,
+  FaPaypal,
+  FaPlus,
+  FaQuoteLeft,
+  FaReddit,
+  FaSave,
+  FaSpinner,
+  FaSpotify,
+  FaSteam,
+  FaTiktok,
+  FaTrash,
+  FaTwitch,
+  FaTwitter,
+  FaUserShield,
+  FaXbox,
+  FaYoutube,
 } from 'react-icons/fa';
 import adminAxios from '../../libs/adminAxios';
 import * as S from './style';
@@ -97,7 +97,7 @@ const EditUser = () => {
     introduction: '',
     role: '',
   });
-  const [previewImage, setPreviewImage] = React.useState<string | null>(null);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [newConnection, setNewConnection] = useState<UserConnectionAddRequest>({
     type: UserConnectionType.GITHUB,
     value: '',
@@ -180,7 +180,7 @@ const EditUser = () => {
   });
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
   ) => {
     setFormData((prev) => ({
       ...prev,
@@ -188,9 +188,7 @@ const EditUser = () => {
     }));
   };
 
-  const handleNewConnectionChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) => {
+  const handleNewConnectionChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setNewConnection((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -201,7 +199,7 @@ const EditUser = () => {
     fileInputRef.current?.click();
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       const previewUrl = URL.createObjectURL(file);
@@ -210,12 +208,12 @@ const EditUser = () => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     updateMutation.mutate(formData);
   };
 
-  const handleAddConnection = (e: React.FormEvent) => {
+  const handleAddConnection = (e: FormEvent) => {
     e.preventDefault();
     addConnectionMutation.mutate(newConnection);
   };

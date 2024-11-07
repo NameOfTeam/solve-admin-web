@@ -1,19 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { FaClock, FaFilter, FaSearch, FaSync, FaTimes, FaSpinner } from 'react-icons/fa';
+import { FaClock, FaFilter, FaSearch, FaSpinner, FaSync, FaTimes } from 'react-icons/fa';
 import * as S from './style';
-import { VIEW_OPTIONS, TIME_RANGES, LOG_LEVELS, CHART_DEFAULTS } from './constants';
+import { CHART_DEFAULTS, LOG_LEVELS, TIME_RANGES, VIEW_OPTIONS } from './constants';
 import { apiLogs, authLogs, securityLogs, systemLogs } from './constants/mock';
 import {
-  LogType,
-  FilterState,
-  StatCard,
-  AuthLog,
-  SecurityLog,
   ApiLog,
-  SystemLog,
-  StatusType,
+  AuthLog,
+  FilterState,
   LogLevel,
+  LogType,
+  SecurityLog,
+  StatCard,
+  StatusType,
+  SystemLog,
 } from './types';
 
 const StatCardComponent = ({ title, value, change, icon }: StatCard) => (
@@ -215,7 +215,8 @@ const Logs = () => {
                 isActive={currentView === option.id}
                 onClick={() => setCurrentView(option.id as LogType)}
               >
-                <option.icon /> {option.label}
+                <option.icon />
+                {option.label}
               </S.ViewButton>
             ))}
           </S.ViewSelector>

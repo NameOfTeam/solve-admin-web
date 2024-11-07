@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { Link, useParams } from 'react-router-dom';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
-  FaRegComment,
-  FaRegClock,
-  FaRegHeart,
   FaChevronDown,
   FaChevronUp,
   FaEdit,
-  FaTrash,
-  FaSpinner,
-  FaReply,
-  FaPlus,
-  FaLightbulb,
-  FaRegLightbulb,
   FaHeart,
+  FaLightbulb,
+  FaPlus,
+  FaRegClock,
+  FaRegComment,
+  FaRegHeart,
+  FaRegLightbulb,
+  FaReply,
+  FaSpinner,
+  FaTrash,
 } from 'react-icons/fa';
 import customAxios from '../../libs/customAxios';
 import * as S from './style';
@@ -305,7 +305,7 @@ const IdeaCard = ({ idea, problemId }: { idea: ProblemIdeaResponse; problemId: s
   );
 };
 
-const ProblemIdeaList: React.FC = () => {
+const ProblemIdeas: React.FC = () => {
   const { problemId } = useParams<{ problemId: string }>();
 
   const {
@@ -390,4 +390,4 @@ const ProblemIdeaList: React.FC = () => {
   );
 };
 
-export default ProblemIdeaList;
+export default ProblemIdeas;

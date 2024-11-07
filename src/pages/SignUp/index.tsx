@@ -1,13 +1,13 @@
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import {
-  FaUser,
-  FaLock,
   FaEnvelope,
   FaKey,
-  FaSpinner,
+  FaLock,
   FaShieldAlt,
   FaSignInAlt,
+  FaSpinner,
+  FaUser,
 } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import useSignup from '../../hooks/auth/useSignup';

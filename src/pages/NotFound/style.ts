@@ -112,6 +112,7 @@ export const Button = styled.button<ButtonProps>`
       border-color: #cbd5e1;
     }
   `}
+    
     @media (max-width: 640px) {
     width: 100%;
   }

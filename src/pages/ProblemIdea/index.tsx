@@ -1,26 +1,26 @@
 import React, { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   FaArrowLeft,
   FaChevronDown,
   FaChevronUp,
-  FaEdit,
-  FaRegClock,
-  FaTrash,
-  FaReply,
-  FaSpinner,
   FaComments,
+  FaEdit,
+  FaExclamationTriangle,
+  FaHeart,
+  FaPen,
+  FaRegClock,
   FaRegComments,
   FaRegEdit,
-  FaHeart,
   FaRegHeart,
-  FaPen,
-  FaExclamationTriangle,
+  FaReply,
+  FaSpinner,
+  FaTrash,
 } from 'react-icons/fa';
 import customAxios from '../../libs/customAxios';
 import * as S from './style';
-import { ProblemIdeaResponse, ProblemIdeaCommentResponse } from '../../types/problem/problem_idea';
+import { ProblemIdeaCommentResponse, ProblemIdeaResponse } from '../../types/problem/problem_idea';
 import { BaseResponse } from '../../types/common/base';
 
 const formatTimeAgo = (dateString: string): string => {

@@ -198,7 +198,6 @@ export const VisibilityBadge = styled(motion.span)<{
       background: #fecaca;
     }
   `}
-
   svg {
     font-size: 0.9em;
   }

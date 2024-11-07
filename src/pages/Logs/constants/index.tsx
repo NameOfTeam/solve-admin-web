@@ -1,4 +1,4 @@
-import { FaServer, FaShieldAlt, FaUserSecret, FaGlobe } from 'react-icons/fa';
+import { FaGlobe, FaServer, FaShieldAlt, FaUserSecret } from 'react-icons/fa';
 import { LogLevel, TimeRange } from '../types';
 
 export const COLORS = [

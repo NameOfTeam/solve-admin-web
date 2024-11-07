@@ -3,12 +3,12 @@ import { motion } from 'framer-motion';
 import { keyframes } from '@emotion/react';
 
 const spin = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 `;
 
 export const Container = styled.div`

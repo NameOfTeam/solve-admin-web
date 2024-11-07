@@ -1,8 +1,8 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { Editor } from '@monaco-editor/react';
-import { FaSpinner, FaMemory, FaClock } from 'react-icons/fa';
+import { FaClock, FaMemory, FaSpinner } from 'react-icons/fa';
 import * as S from './style';
 import adminAxios from '../../libs/adminAxios';
 

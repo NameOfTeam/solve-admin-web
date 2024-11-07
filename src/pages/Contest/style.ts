@@ -167,7 +167,6 @@ export const VisibilityBadge = styled.span<{
     background: #fee2e2;
     color: #991b1b;
   `}
-
   svg {
     font-size: 1em;
   }

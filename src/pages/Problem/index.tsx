@@ -1,18 +1,18 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   FaArrowLeft,
-  FaEdit,
-  FaTrash,
   FaBook,
-  FaKeyboard,
   FaCheckCircle,
   FaClock,
-  FaMemory,
-  FaUser,
+  FaEdit,
   FaExclamationTriangle,
+  FaKeyboard,
+  FaMemory,
   FaSpinner,
+  FaTrash,
+  FaUser,
 } from 'react-icons/fa';
 import * as S from './style';
 import { ProblemResponse } from '../../types/problem/problem';

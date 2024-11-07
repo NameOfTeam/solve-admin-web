@@ -1,24 +1,24 @@
-import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FaUser, FaLock, FaSpinner, FaShieldAlt, FaUserPlus } from 'react-icons/fa';
+import { AnimatePresence, motion } from 'framer-motion';
+import { FaLock, FaShieldAlt, FaSpinner, FaUser, FaUserPlus } from 'react-icons/fa';
 import useLogin from '../../hooks/auth/useLogin';
 import { useNavigate } from 'react-router-dom';
 import * as S from './style';
+import { FormEvent, KeyboardEvent, useState } from 'react';
 
 type InputType = 'username' | 'password' | null;
 
-const Login: React.FC = () => {
+const Login = () => {
   const navigate = useNavigate();
   const { request, handleChange, isPending, mutate } = useLogin();
-  const [focusedInput, setFocusedInput] = React.useState<InputType>(null);
+  const [focusedInput, setFocusedInput] = useState<InputType>(null);
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>): void => {
     if (e.key === 'Enter') {
       mutate();
     }
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     mutate();
   };

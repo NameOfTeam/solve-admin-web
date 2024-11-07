@@ -1,14 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 import { motion, useReducedMotion } from 'framer-motion';
 import {
+  FaArrowRight,
+  FaBook,
+  FaBrain,
+  FaChartLine,
   FaCode,
+  FaCog,
   FaTrophy,
   FaUsers,
-  FaChartLine,
-  FaCog,
-  FaArrowRight,
-  FaBrain,
-  FaBook,
 } from 'react-icons/fa';
 import * as S from './style';
 

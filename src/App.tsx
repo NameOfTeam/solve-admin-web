@@ -1,9 +1,8 @@
-import { ThemeProvider } from '@emotion/react';
+import { Theme, ThemeProvider } from '@emotion/react';
 import Router from './components/Router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Theme } from '@emotion/react';
 import useTokenStore from './stores/useTokenStore';
 
 const queryClient = new QueryClient();

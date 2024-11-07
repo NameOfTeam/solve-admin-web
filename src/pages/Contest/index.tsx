@@ -1,45 +1,20 @@
-import { useParams, useNavigate } from 'react-router-dom';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   FaArrowLeft,
-  FaEdit,
-  FaTrash,
-  FaClock,
-  FaUser,
-  FaUsers,
   FaBook,
+  FaClock,
+  FaEdit,
   FaEye,
   FaEyeSlash,
   FaSpinner,
+  FaTrash,
+  FaUser,
+  FaUsers,
 } from 'react-icons/fa';
 import adminAxios from '../../libs/adminAxios';
 import * as S from './style';
-
-interface ContestResponse {
-  id: number;
-  title: string;
-  description: string;
-  startAt: string;
-  endAt: string;
-  owner: {
-    id: string;
-    username: string;
-  };
-  participants: Array<{
-    id: string;
-    username: string;
-  }>;
-  operators: Array<{
-    id: string;
-    username: string;
-  }>;
-  problems: Array<{
-    title: string;
-  }>;
-  visibility: 'PUBLIC' | 'PRIVATE';
-  createdAt: string;
-  updatedAt: string;
-}
+import { ContestResponse } from '../../types/contest/contest.ts';
 
 const Contest = () => {
   const { contestId } = useParams<{ contestId: string }>();
