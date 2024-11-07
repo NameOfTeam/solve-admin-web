@@ -1,15 +1,15 @@
 import { Outlet } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar';
+import * as S from './style';
 
 const RootLayout = () => {
   return (
-    <>
+    <S.LayoutContainer>
       <Sidebar />
-
-      <main style={{ paddingLeft: '280px' }}>
+      <S.Main>
         <Outlet />
-      </main>
-    </>
+      </S.Main>
+    </S.LayoutContainer>
   );
 };
 
