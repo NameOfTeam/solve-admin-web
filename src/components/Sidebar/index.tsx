@@ -11,6 +11,7 @@ import {
   FaBrain,
   FaBars,
   FaTimes,
+  FaBook,
 } from 'react-icons/fa';
 import * as S from './style';
 
@@ -24,6 +25,11 @@ const menuItems = [
     title: '문제 관리',
     icon: <FaCode />,
     path: '/problems',
+  },
+  {
+    title: '문제집 관리',
+    icon: <FaBook />,
+    path: '/workbooks',
   },
   {
     title: '대회 관리',
@@ -102,7 +108,8 @@ const Sidebar = () => {
         <S.MobileMenuButton
           onClick={() => setIsOpen(true)}
           whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}>
+          whileTap={{ scale: 0.9 }}
+        >
           <FaBars />
         </S.MobileMenuButton>
       )}
@@ -124,12 +131,14 @@ const Sidebar = () => {
               animate="open"
               exit="closed"
               variants={sidebarVariants}
-              isMobile={isMobile}>
+              isMobile={isMobile}
+            >
               {isMobile && (
                 <S.CloseButton
                   onClick={() => setIsOpen(false)}
                   whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}>
+                  whileTap={{ scale: 0.9 }}
+                >
                   <FaTimes />
                 </S.CloseButton>
               )}
@@ -138,7 +147,8 @@ const Sidebar = () => {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}>
+                  transition={{ duration: 0.5 }}
+                >
                   <S.Logo>SOLVE</S.Logo>
                   <S.LogoSubtitle>Admin</S.LogoSubtitle>
                 </motion.div>
@@ -153,7 +163,8 @@ const Sidebar = () => {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
-                    whileHover={{ x: 10 }}>
+                    whileHover={{ x: 10 }}
+                  >
                     <S.MenuIcon active={location.pathname === item.path}>{item.icon}</S.MenuIcon>
                     <S.MenuTitle active={location.pathname === item.path}>{item.title}</S.MenuTitle>
                   </S.MenuItem>

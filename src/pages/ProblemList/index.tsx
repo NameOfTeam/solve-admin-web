@@ -3,11 +3,11 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaUser, FaClock, FaMemory, FaSpinner, FaPlus, FaLightbulb } from 'react-icons/fa';
-import customAxios from '../../libs/customAxios';
 import * as S from './style';
 import { BaseResponse } from '../../types/common/base';
 import { PageResponse } from '../../types/common/page';
 import { ProblemResponse } from '../../types/problem/problem';
+import adminAxios from '../../libs/adminAxios';
 
 const ProblemList = () => {
   const { ref, inView } = useInView();
@@ -15,7 +15,7 @@ const ProblemList = () => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useInfiniteQuery({
     queryKey: ['problems'],
     queryFn: async ({ pageParam = 0 }) => {
-      const { data } = await customAxios.get<BaseResponse<PageResponse<ProblemResponse>>>(
+      const { data } = await adminAxios.get<BaseResponse<PageResponse<ProblemResponse>>>(
         '/problems',
         {
           params: {

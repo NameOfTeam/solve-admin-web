@@ -20,7 +20,8 @@ const StatCardComponent = ({ title, value, change, icon }: StatCard) => (
   <S.StatCard
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
-    transition={CHART_DEFAULTS.transition}>
+    transition={CHART_DEFAULTS.transition}
+  >
     <S.StatIcon>{icon}</S.StatIcon>
     <S.StatInfo>
       <S.StatTitle>{title}</S.StatTitle>
@@ -98,7 +99,8 @@ const Logs = () => {
       initial={{ x: '100%' }}
       animate={{ x: 0 }}
       exit={{ x: '100%' }}
-      transition={{ type: 'spring', damping: 25, stiffness: 200 }}>
+      transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+    >
       <S.FiltersHeader>
         <S.FiltersTitle>필터 설정</S.FiltersTitle>
         <S.CloseButton isActive={false} onClick={() => setIsFilterOpen(false)}>
@@ -113,7 +115,8 @@ const Logs = () => {
             <S.TimeRangeButton
               key={value}
               isActive={filters.timeRange === value}
-              onClick={() => handleFilterChange('timeRange', value)}>
+              onClick={() => handleFilterChange('timeRange', value)}
+            >
               {label}
             </S.TimeRangeButton>
           ))}
@@ -128,7 +131,8 @@ const Logs = () => {
               key={level}
               isActive={filters.levels.includes(level)}
               level={level}
-              onClick={() => toggleLevel(level)}>
+              onClick={() => toggleLevel(level)}
+            >
               {level.toUpperCase()}
             </S.LevelButton>
           ))}
@@ -139,7 +143,8 @@ const Logs = () => {
         <S.FilterLabel>실시간 업데이트</S.FilterLabel>
         <S.ToggleSwitch
           isActive={filters.isRealtime}
-          onClick={() => handleFilterChange('isRealtime', !filters.isRealtime)}>
+          onClick={() => handleFilterChange('isRealtime', !filters.isRealtime)}
+        >
           <S.ToggleSlider isActive={filters.isRealtime} />
         </S.ToggleSwitch>
       </S.FilterSection>
@@ -195,7 +200,8 @@ const Logs = () => {
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}>
+          transition={{ duration: 0.5 }}
+        >
           <S.Title>
             로그 <span>모니터링</span>
           </S.Title>
@@ -207,7 +213,8 @@ const Logs = () => {
               <S.ViewButton
                 key={option.id}
                 isActive={currentView === option.id}
-                onClick={() => setCurrentView(option.id as LogType)}>
+                onClick={() => setCurrentView(option.id as LogType)}
+              >
                 <option.icon /> {option.label}
               </S.ViewButton>
             ))}

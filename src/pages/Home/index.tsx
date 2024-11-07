@@ -8,6 +8,7 @@ import {
   FaCog,
   FaArrowRight,
   FaBrain,
+  FaBook,
 } from 'react-icons/fa';
 import * as S from './style';
 
@@ -39,6 +40,14 @@ const Home = () => {
       path: '/users',
       gradient: 'linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%)',
       delay: 0.4,
+    },
+    {
+      title: '문제집 관리',
+      description: '문제집을 생성하고 관리합니다',
+      icon: <FaBook />,
+      path: '/workbooks',
+      gradient: 'linear-gradient(135deg, #10b981 0%, #047857 100%)',
+      delay: 0.5,
     },
     {
       title: '통계',
@@ -105,22 +114,26 @@ const Home = () => {
         <motion.div
           initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}>
+          transition={{ duration: 0.5 }}
+        >
           <S.Header>
             <S.Highlight>
               <motion.div
                 initial={prefersReducedMotion ? false : { width: 0 }}
                 animate={{ width: '100%' }}
-                transition={{ delay: 0.5, duration: 0.8 }}>
+                transition={{ delay: 0.5, duration: 0.8 }}
+              >
                 <motion.div
                   initial={prefersReducedMotion ? false : { y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.8, duration: 0.5 }}>
+                  transition={{ delay: 0.8, duration: 0.5 }}
+                >
                   <S.Title>
                     <motion.span
                       initial={prefersReducedMotion ? false : { backgroundPosition: '0% 50%' }}
                       animate={{ backgroundPosition: '100% 50%' }}
-                      transition={{ duration: 3, repeat: Infinity, repeatType: 'reverse' }}>
+                      transition={{ duration: 3, repeat: Infinity, repeatType: 'reverse' }}
+                    >
                       SOLVE
                     </motion.span>{' '}
                     <span>Admin</span>
@@ -131,28 +144,28 @@ const Home = () => {
             <motion.div
               initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.5 }}>
+              transition={{ delay: 0.3, duration: 0.5 }}
+            >
               <S.SubTitle>코딩 플랫폼을 더 스마트하게</S.SubTitle>
             </motion.div>
           </S.Header>
         </motion.div>
 
-        <S.MenuGrid
-          variants={containerAnimation}
-          initial="hidden"
-          animate="visible">
+        <S.MenuGrid variants={containerAnimation} initial="hidden" animate="visible">
           {menuItems.map((item) => (
             <motion.div
               key={item.path}
               variants={itemAnimation}
               whileHover={{ y: -5 }}
-              whileTap={{ scale: 0.98 }}>
+              whileTap={{ scale: 0.98 }}
+            >
               <S.MenuItem onClick={() => handleCardClick(item.path)} background={item.gradient}>
                 <S.IconWrapper className="icon-section">
                   <motion.div
                     className="icon-wrapper"
                     whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.5 }}>
+                    transition={{ duration: 0.5 }}
+                  >
                     {item.icon}
                   </motion.div>
                 </S.IconWrapper>
@@ -166,7 +179,8 @@ const Home = () => {
                   className="arrow"
                   initial={{ opacity: 0, x: -10 }}
                   whileHover={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.2 }}>
+                  transition={{ duration: 0.2 }}
+                >
                   <FaArrowRight />
                 </motion.div>
               </S.MenuItem>

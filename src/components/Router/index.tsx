@@ -19,6 +19,9 @@ import Statistics from '../../pages/Statistics';
 import User from '../../pages/User';
 import EditUser from '../../pages/EditUser';
 import Logs from '../../pages/Logs';
+import WorkbookList from '../../pages/WorkbookList';
+import NewWorkbook from '../../pages/NewWorkbook';
+import Workbook from '../../pages/Workbook';
 
 const Router = () => {
   return (
@@ -41,6 +44,10 @@ const Router = () => {
           <Route path="/contests" element={<ContestList />} />
           <Route path="/contests/:contestId" element={<Contest />} />
           <Route path="/contests/new" element={<NewContest />} />
+
+          <Route path="/workbooks" element={<WorkbookList />} />
+          <Route path="/workbooks/:workbookId" element={<Workbook />} />
+          <Route path="/workbooks/new" element={<NewWorkbook />} />
 
           <Route path="/settings" element={<Settings />} />
           <Route path="/statistics" element={<Statistics />} />
