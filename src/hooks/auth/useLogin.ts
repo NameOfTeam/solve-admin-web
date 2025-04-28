@@ -10,7 +10,7 @@ import { ErrorResponse } from '../../types/common/error';
 
 const useLogin = () => {
   const [request, setRequest] = useState<LoginRequest>({
-    username: '',
+    email: '',
     password: '',
   });
   const { setAccessToken, setRefreshToken, clearTokens } = useTokenStore();
